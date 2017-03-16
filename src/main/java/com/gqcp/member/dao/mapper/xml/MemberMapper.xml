@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gqcp.member.dao.mapper.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.gqcp.member.dao.model.Member" >
+    <id column="bo_id" property="boId" jdbcType="BIGINT" />
+    <result column="operator_bo_id" property="operatorBoId" jdbcType="BIGINT" />
+    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+    <result column="org_bo_id" property="orgBoId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="head_icon" property="headIcon" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="area_axis" property="areaAxis" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="member_role" property="memberRole" jdbcType="VARCHAR" />
+    <result column="agree_contract" property="agreeContract" jdbcType="TINYINT" />
+    <result column="is_ca" property="isCa" jdbcType="TINYINT" />
+    <result column="auth_sign" property="authSign" jdbcType="VARCHAR" />
+    <result column="is_credit" property="isCredit" jdbcType="TINYINT" />
+    <result column="audit_status" property="auditStatus" jdbcType="VARCHAR" />
+    <result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="audit_bo_id" property="auditBoId" jdbcType="BIGINT" />
+    <result column="system_id" property="systemId" jdbcType="TINYINT" />
+    <result column="data_remark" property="dataRemark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="version_remark" property="versionRemark" jdbcType="VARCHAR" />
+    <result column="vno" property="vno" jdbcType="TIMESTAMP" />
+    <result column="is_enabled" property="isEnabled" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bo_id, operator_bo_id, user_type, org_bo_id, user_name, real_name, mobile_phone, 
+    email, company_name, head_icon, area_id, area_axis, addr, member_role, agree_contract, 
+    is_ca, auth_sign, is_credit, audit_status, audit_time, audit_bo_id, system_id, data_remark, 
+    create_time, version_remark, vno, is_enabled
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gqcp.member.dao.model.MemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nxds_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from nxds_member
+    where bo_id = #{boId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from nxds_member
+    where bo_id = #{boId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gqcp.member.dao.model.MemberExample" >
+    delete from nxds_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gqcp.member.dao.model.Member" >
+    insert into nxds_member (bo_id, operator_bo_id, user_type, 
+      org_bo_id, user_name, real_name, 
+      mobile_phone, email, company_name, 
+      head_icon, area_id, area_axis, 
+      addr, member_role, agree_contract, 
+      is_ca, auth_sign, is_credit, 
+      audit_status, audit_time, audit_bo_id, 
+      system_id, data_remark, create_time, 
+      version_remark, vno, is_enabled
+      )
+    values (#{boId,jdbcType=BIGINT}, #{operatorBoId,jdbcType=BIGINT}, #{userType,jdbcType=VARCHAR}, 
+      #{orgBoId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{mobilePhone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{headIcon,jdbcType=VARCHAR}, #{areaId,jdbcType=INTEGER}, #{areaAxis,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR}, #{memberRole,jdbcType=VARCHAR}, #{agreeContract,jdbcType=TINYINT}, 
+      #{isCa,jdbcType=TINYINT}, #{authSign,jdbcType=VARCHAR}, #{isCredit,jdbcType=TINYINT}, 
+      #{auditStatus,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{auditBoId,jdbcType=BIGINT}, 
+      #{systemId,jdbcType=TINYINT}, #{dataRemark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{versionRemark,jdbcType=VARCHAR}, #{vno,jdbcType=TIMESTAMP}, #{isEnabled,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gqcp.member.dao.model.Member" >
+    insert into nxds_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="boId != null" >
+        bo_id,
+      </if>
+      <if test="operatorBoId != null" >
+        operator_bo_id,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="orgBoId != null" >
+        org_bo_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="mobilePhone != null" >
+        mobile_phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="headIcon != null" >
+        head_icon,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="areaAxis != null" >
+        area_axis,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="memberRole != null" >
+        member_role,
+      </if>
+      <if test="agreeContract != null" >
+        agree_contract,
+      </if>
+      <if test="isCa != null" >
+        is_ca,
+      </if>
+      <if test="authSign != null" >
+        auth_sign,
+      </if>
+      <if test="isCredit != null" >
+        is_credit,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="auditBoId != null" >
+        audit_bo_id,
+      </if>
+      <if test="systemId != null" >
+        system_id,
+      </if>
+      <if test="dataRemark != null" >
+        data_remark,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="versionRemark != null" >
+        version_remark,
+      </if>
+      <if test="vno != null" >
+        vno,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="boId != null" >
+        #{boId,jdbcType=BIGINT},
+      </if>
+      <if test="operatorBoId != null" >
+        #{operatorBoId,jdbcType=BIGINT},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgBoId != null" >
+        #{orgBoId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="headIcon != null" >
+        #{headIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="areaAxis != null" >
+        #{areaAxis,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRole != null" >
+        #{memberRole,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeContract != null" >
+        #{agreeContract,jdbcType=TINYINT},
+      </if>
+      <if test="isCa != null" >
+        #{isCa,jdbcType=TINYINT},
+      </if>
+      <if test="authSign != null" >
+        #{authSign,jdbcType=VARCHAR},
+      </if>
+      <if test="isCredit != null" >
+        #{isCredit,jdbcType=TINYINT},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditBoId != null" >
+        #{auditBoId,jdbcType=BIGINT},
+      </if>
+      <if test="systemId != null" >
+        #{systemId,jdbcType=TINYINT},
+      </if>
+      <if test="dataRemark != null" >
+        #{dataRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionRemark != null" >
+        #{versionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="vno != null" >
+        #{vno,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gqcp.member.dao.model.MemberExample" resultType="java.lang.Integer" >
+    select count(*) from nxds_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update nxds_member
+    <set >
+      <if test="record.boId != null" >
+        bo_id = #{record.boId,jdbcType=BIGINT},
+      </if>
+      <if test="record.operatorBoId != null" >
+        operator_bo_id = #{record.operatorBoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgBoId != null" >
+        org_bo_id = #{record.orgBoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null" >
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilePhone != null" >
+        mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headIcon != null" >
+        head_icon = #{record.headIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaId != null" >
+        area_id = #{record.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.areaAxis != null" >
+        area_axis = #{record.areaAxis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addr != null" >
+        addr = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberRole != null" >
+        member_role = #{record.memberRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agreeContract != null" >
+        agree_contract = #{record.agreeContract,jdbcType=TINYINT},
+      </if>
+      <if test="record.isCa != null" >
+        is_ca = #{record.isCa,jdbcType=TINYINT},
+      </if>
+      <if test="record.authSign != null" >
+        auth_sign = #{record.authSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isCredit != null" >
+        is_credit = #{record.isCredit,jdbcType=TINYINT},
+      </if>
+      <if test="record.auditStatus != null" >
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditBoId != null" >
+        audit_bo_id = #{record.auditBoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.systemId != null" >
+        system_id = #{record.systemId,jdbcType=TINYINT},
+      </if>
+      <if test="record.dataRemark != null" >
+        data_remark = #{record.dataRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.versionRemark != null" >
+        version_remark = #{record.versionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vno != null" >
+        vno = #{record.vno,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnabled != null" >
+        is_enabled = #{record.isEnabled,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update nxds_member
+    set bo_id = #{record.boId,jdbcType=BIGINT},
+      operator_bo_id = #{record.operatorBoId,jdbcType=BIGINT},
+      user_type = #{record.userType,jdbcType=VARCHAR},
+      org_bo_id = #{record.orgBoId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      head_icon = #{record.headIcon,jdbcType=VARCHAR},
+      area_id = #{record.areaId,jdbcType=INTEGER},
+      area_axis = #{record.areaAxis,jdbcType=VARCHAR},
+      addr = #{record.addr,jdbcType=VARCHAR},
+      member_role = #{record.memberRole,jdbcType=VARCHAR},
+      agree_contract = #{record.agreeContract,jdbcType=TINYINT},
+      is_ca = #{record.isCa,jdbcType=TINYINT},
+      auth_sign = #{record.authSign,jdbcType=VARCHAR},
+      is_credit = #{record.isCredit,jdbcType=TINYINT},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      audit_bo_id = #{record.auditBoId,jdbcType=BIGINT},
+      system_id = #{record.systemId,jdbcType=TINYINT},
+      data_remark = #{record.dataRemark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      version_remark = #{record.versionRemark,jdbcType=VARCHAR},
+      vno = #{record.vno,jdbcType=TIMESTAMP},
+      is_enabled = #{record.isEnabled,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gqcp.member.dao.model.Member" >
+    update nxds_member
+    <set >
+      <if test="operatorBoId != null" >
+        operator_bo_id = #{operatorBoId,jdbcType=BIGINT},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgBoId != null" >
+        org_bo_id = #{orgBoId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="headIcon != null" >
+        head_icon = #{headIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="areaAxis != null" >
+        area_axis = #{areaAxis,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRole != null" >
+        member_role = #{memberRole,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeContract != null" >
+        agree_contract = #{agreeContract,jdbcType=TINYINT},
+      </if>
+      <if test="isCa != null" >
+        is_ca = #{isCa,jdbcType=TINYINT},
+      </if>
+      <if test="authSign != null" >
+        auth_sign = #{authSign,jdbcType=VARCHAR},
+      </if>
+      <if test="isCredit != null" >
+        is_credit = #{isCredit,jdbcType=TINYINT},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditBoId != null" >
+        audit_bo_id = #{auditBoId,jdbcType=BIGINT},
+      </if>
+      <if test="systemId != null" >
+        system_id = #{systemId,jdbcType=TINYINT},
+      </if>
+      <if test="dataRemark != null" >
+        data_remark = #{dataRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionRemark != null" >
+        version_remark = #{versionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="vno != null" >
+        vno = #{vno,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=TINYINT},
+      </if>
+    </set>
+    where bo_id = #{boId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gqcp.member.dao.model.Member" >
+    update nxds_member
+    set operator_bo_id = #{operatorBoId,jdbcType=BIGINT},
+      user_type = #{userType,jdbcType=VARCHAR},
+      org_bo_id = #{orgBoId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      head_icon = #{headIcon,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=INTEGER},
+      area_axis = #{areaAxis,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      member_role = #{memberRole,jdbcType=VARCHAR},
+      agree_contract = #{agreeContract,jdbcType=TINYINT},
+      is_ca = #{isCa,jdbcType=TINYINT},
+      auth_sign = #{authSign,jdbcType=VARCHAR},
+      is_credit = #{isCredit,jdbcType=TINYINT},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      audit_bo_id = #{auditBoId,jdbcType=BIGINT},
+      system_id = #{systemId,jdbcType=TINYINT},
+      data_remark = #{dataRemark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      version_remark = #{versionRemark,jdbcType=VARCHAR},
+      vno = #{vno,jdbcType=TIMESTAMP},
+      is_enabled = #{isEnabled,jdbcType=TINYINT}
+    where bo_id = #{boId,jdbcType=BIGINT}
+  </update>
+  <select id="selectAuditListByAxis" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select a.* from  nxds_member a
+     <where>
+       <if test="reqForm.axisArea!=null and reqForm.axisArea!=''">
+         and REPLACE(a.area_axis,'$','L') REGEXP #{reqForm.axisArea,jdbcType=VARCHAR}
+       </if>
+       <if test="reqForm.keywords!=null and reqForm.keywords!=''">
+         and (a.user_name like concat(concat('%',#{reqForm.keywords}),'%') or a.mobile_phone like concat(concat('%',#{reqForm.keywords}),'%'))
+       </if>
+       <if test="reqForm.listStatus!=null and reqForm.listStatus.size > 0">
+         and a.audit_status in
+         <foreach collection="reqForm.listStatus" item="status" open="(" separator=","  close=")">
+           #{status,jdbcType=VARCHAR}
+         </foreach>
+       </if>
+     </where>
+  </select>
+</mapper>

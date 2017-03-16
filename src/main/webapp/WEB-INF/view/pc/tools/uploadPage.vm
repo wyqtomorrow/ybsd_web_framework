@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>上传文件</title>
+</head>
+<body style="background: #fff;">
+    <input type="file" id="file1" name="file1" onchange="uploadVideo1()"/>
+    <script language="javascript">
+        contextPath='${link.contextPath}';
+    </script>
+    <script src="${link.contextPath}/common/jquery-2.2.3.min.js?v=${svno}"></script>
+    <script src="${link.contextPath}/common/ajaxfileupload.js?v=${svno}"></script>
+    <script type="application/javascript">
+        function uploadVideo1(){
+            $.ajaxFileUpload({
+                url: contextPath+'/file/uploadImg.do',
+                secureuri:false,
+                fileElementId:'file1',
+                dataType: 'json',
+                success: function (data, status) {
+                    alert(data);
+                },
+                error : function(data, status, e) {
+                    console.info("error:"+data);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

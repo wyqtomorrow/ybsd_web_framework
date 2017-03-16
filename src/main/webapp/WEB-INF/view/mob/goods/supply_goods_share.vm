@@ -1,0 +1,162 @@
+#parse("mob/common/head.vm")
+<script src="${link.contextPath}/mui/js/public.js" type="text/javascript"></script>
+<title>供应商品分享</title>
+</head>
+<body>
+#*<header class="mui-bar mui-bar-nav d_border_b">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title yahei f15">商品详情</h1>
+</header>*#
+<div class="mui-content mui-content1">
+    <input type="hidden" id="deBoId" value="$!goods.sellerBoId">
+    <input type="hidden" id="deOperatorBoId" value="$!goods.sellerOperatorBoId">
+    <input type="hidden" id="deUserType" value="$!goods.sellerUserType">
+    <input type="hidden" id="busId" value="$!goods.id">
+    <input type="hidden" id="shopId" value="$!goods.shopId">
+    <input type="hidden" id="origStock" value="$!{goods.goodsSpecResForm.origStock}">
+##    <input type="hidden" id="appUrl" value="$!appUrl">
+    <div id="slider" class="mui-slider" >
+        <div class="mui-slider-group mui-slider-loop">
+            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+            #if($!goods.picsUrl)
+                #foreach($pics in $goods.picsUrl)
+                    #if($!velocityCount==1)
+                        <div class="mui-slider-item mui-slider-item-duplicate">
+                            <a href="javascript:;">
+                                <img src="$pics" style="height:360px ">
+                            </a>
+                        </div>
+                    #else
+                        <div class="mui-slider-item">
+                            <a href="javascript:;">
+                                <img  src="$pics" style="height:360px ">
+                            </a>
+                        </div>
+                    #end
+
+                #end
+            #else
+                <div class="mui-slider-item">
+                    <a href="javascript:;">
+                        <img src="${link.contextPath}/mstatic/img/banner.png">
+                    </a>
+                </div>
+            #end
+        #*<div class="mui-slider-item mui-slider-item-duplicate">
+            <a href="javascript:;">
+                <img src="${link.contextPath}/mstatic/img/d_pic16.png">
+            </a>
+        </div>
+        <!-- 第一张 -->
+        <div class="mui-slider-item">
+            <a href="javascript:;">
+                <img src="${link.contextPath}/mstatic/img/d_pic16.png">
+            </a>
+        </div>*#
+        </div>
+        <div class="mui-slider-indicator">
+            #if($!goods.picsUrl)
+                #foreach($pics in $goods.picsUrl)
+                    #if($!velocityCount==1)
+                        <div class="mui-indicator mui-active"></div>
+                    #else
+                        <div class="mui-indicator"></div>
+                    #end
+                #end
+            #else
+                <div class="mui-indicator mui-active"></div>
+            #end
+        </div>
+    </div>
+    <div class="padd15 b_white">
+        <p class="f15 black3">$!{goods.mapAttr.GAV_VARIETY}<em class="pad10-l"></em>$!{goods.mapAttr.GAV_YEAR_AGE}<em class="pad10-l"></em>$!{goods.categoryName}</p>
+        <div class="box10"></div>
+        <table  class="sj_data" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <p class="black3">数量</p>
+                    <p class="black3"><em class="fb d_blue arial f15">$number.integer($!goods.goodsSpecResForm.currStock)</em>头</p>
+                </td>
+                <td>
+                    <p class="black3">估重</p>
+                    <p class="black3"><em class="fb d_blue arial f15">$!{goods.mapAttr.GAV_WEIGHT_MIN}--$!{goods.mapAttr.GAV_WEIGHT_MAX}</em>公斤/头</p>
+                </td>
+                <td>
+                    <p class="black3">价格</p>
+                    <p class="black3"><em class="fb d_blue arial f15">$!{goods.goodsSpecResForm.price}</em>元/$!{goods.goodsSpecResForm.unitText}</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        #if("$!goods.mapAttr.GAV_GENDER" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">性别</label>
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_GENDER}</div>
+            </li>
+        #end
+        #if("$!goods.mapAttr.GAV_HAIR_COLOR" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">毛色</label>
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_HAIR_COLOR}</div>
+            </li>
+        #end
+        #if("$!goods.mapAttr.GAV_SHAPE" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">体型</label>
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_SHAPE}</div>
+            </li>
+        #end
+        #if("$!goods.mapAttr.GAV_HEIGHT" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">体高</label>
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_HEIGHT}cm</div>
+            </li>
+        #end
+        #if("$!goods.mapAttr.GAV_LENGTH" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">体长</label>
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_LENGTH}cm</div>
+            </li>
+        #end
+        #if($!goods.logisticsTxt)
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">配送方式</label>
+                <div class="mui-col-xs-9 block">$!{goods.logisticsTxt}</div>
+            </li>
+        #end
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">交货地址</label>
+            <div class="mui-col-xs-9 block">$!{goods.addrText}</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">发布时间</label>
+            <div class="mui-col-xs-9 block">$!date.format('yyyy-MM-dd HH:mm:ss',$!goods.publishTime)</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">有效期至</label>
+
+            <div class="mui-col-xs-9 block">$!date.format('yyyy-MM-dd HH:mm:ss',$!goods.expireTime)</div>
+        </li>
+        #if($!goods.description)
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">说明</label>
+                <div class="mui-col-xs-9">$!{goods.description}<div>
+            </li>
+        #end
+    </ul>
+    <div class="box10"></div>
+</div>
+<nav class="mui-bar mui-bar-tab d_footer d_bgray d_fx_fot">
+    <div class="mui-content-padded">
+        <button type="button" class="tjbtn mui-btn mui-btn-block d_bl white d_nobor" onclick="download()">下载驴联网，查看更多内容</button>
+    </div>
+</nav>
+<script  type="text/javascript">
+    function download(){
+        self.location.href= "/mob/download/lvApp";
+    }
+</script>
+</body>
+</html>

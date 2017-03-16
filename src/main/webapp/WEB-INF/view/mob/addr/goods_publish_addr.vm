@@ -1,0 +1,35 @@
+#*<header class="mui-bar mui-bar-nav mjdp d_border_b" id="myAddrHead">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title yahei f15">我的地址</h1>
+</header>*#
+<input type="hidden" id="provinceId" >
+<input type="hidden" id="cityId" >
+<input type="hidden" id="countyId" >
+<input type="hidden" id="axis" >
+<input type="hidden" id="fullName" >
+<input type="hidden" id="modifySign" >
+<input type="hidden" id="boId" >
+<div class="mui-content mui-content1 d_detail d_margin" id="refreshContainer">
+    <div class="d_dizhi"><img src="${link.contextPath}/mstatic/img/d_icon1.png" width="100%"/></div>
+    <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed mui-table-list" id="myAddrList">
+    </ul>
+</div>
+<div class="box80" id="geshi1"></div>
+<nav class="mui-bar mui-bar-tab d_addres b_white" id="dibu1">
+    <div class="mui-content-padded">
+        <button type="button" class=" mui-btn mui-btn-block d_bl white d_nobor" onclick="addAddr()"><i class="iconfont icon-tianjiadizhi f14 "></i>新增地址</button>
+        <div class="box10"></div>
+        <button type="button" class=" mui-btn mui-btn-block d_grey white d_nobor" onclick="toBack()"><i class="mui-icon mui-icon-arrowthinleft f14 "></i>返回上一级</button>
+        <div class="box10"></div>
+    </div>
+</nav>
+#parse("mob/addr/addr_add.vm")
+<script src="${link.contextPath}/mui/js/mui.poppicker.min.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/template.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/addr/goods_publish_addr.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mui/js/mui.pullToRefresh.min.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mui/js/muiDialog.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/address3ji.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mui/Mymui/mcity.js" type="text/javascript"></script>
+
+

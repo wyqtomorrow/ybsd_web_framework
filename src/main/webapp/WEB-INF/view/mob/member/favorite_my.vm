@@ -1,0 +1,57 @@
+#parse("mob/common/head.vm")
+<title>我的收藏</title>
+</head>
+<body>
+<div class="mui-content">
+    <div id="slider" class="mui-slider mui-fullscreen m_list" data-role="page">
+        <div id="favTap" class="d_link mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+            <ul  class="mui-row d_bgray t_center d_tab d_tab1 d_border_b ">
+                <li class="mui-col-xs-3"><a class="mui-control-item  mui-active" name="GY">供应商品</a></li>
+                <li class="mui-col-xs-3"><a class="mui-control-item" name="QG">求购商品</a></li>
+                <li class="mui-col-xs-3"><a class="mui-control-item" name="SHOP">店铺</a></li>
+                <li class="mui-col-xs-3"><a class="mui-control-item" name="WZ">文章</a></li>
+            </ul>
+        </div>
+        <div class="mui-slider-group">
+            <div class="mui-slider-item mui-control-content mui-active">
+                <div id="pullrefresh" class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <ul class="mui-table-view  mui-table-list mui-table-list1 md_list1">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="mui-bar mui-bar-tab d_border_t hied shoucang">
+    <div class="d_b_sc">
+        <a href="javascript:;" class=" mui-btn mui-btn-block  d_nobor db_sc">
+            <span class="iconfont icon-favorite1 block f20"></span>
+            <span class="mui-tab-label em">收藏</span>
+        </a>
+        <a href="javascript:;" class=" mui-btn mui-btn-block  d_nobor f15 cancel">取消</a>
+    </div>
+</nav>
+<script src="/mui/js/mui.pullToRefresh.js"></script>
+<script src="/mui/js/mui.pullToRefresh.material.js"></script>
+<script src="/common/template.js"></script>
+<script src="/mstatic/js/member/favorite_my.js"></script>
+<script src="/mstatic/js/member/favorite_edit.js"></script>
+<script>
+    mui.init({
+        swipeBack: false
+    });
+    mui('.mui-slider').slider().setStopped(true);
+    (function($) {
+        //阻尼系数
+        var deceleration = mui.os.ios?0.003:0.0009;
+        $('.mui-scroll-wrapper').scroll({
+            bounce: false,
+            indicators: true, //是否显示滚动条
+            deceleration:deceleration
+        });
+    })(mui);
+</script>
+</body>
+</html>

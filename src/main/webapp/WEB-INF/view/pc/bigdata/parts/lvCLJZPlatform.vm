@@ -1,0 +1,115 @@
+<div class="$!class" id="szcljz" style="$!style" ></div>
+
+<script type="text/javascript">
+    //--------------------生猪出栏均重----------start-----------------
+    function getLvAvgWeightInfo(){
+        var beginMonth = $("#beginMonth").val();
+        var toDay = $("#toDay").val();
+
+        jQuery.ajax({
+            url:'/bigdata/getLvAvgWeightInfo',
+            type:'POST',
+            data:{"beginMonth":beginMonth,"toDay":toDay},
+            dataType:'JSON',
+            success:function(data){
+                var myobj=eval(data.data);
+                createLvAvgWeightData(myobj.rouLvDateList,myobj.rouLvAvgWeightList);
+            }
+        });
+    }
+    function createLvAvgWeightData(date,clJZ) {
+
+        var szcljzOption = {
+            backgroundColor: 'transparent',
+            title : {
+                text : '',
+                subtext:'',
+                textStyle : {
+                    color: '#fff'
+                }
+            },
+            tooltip : {
+                trigger: 'axis',
+                //formatter:'{b} <br/>充值：{c}万<br/>取现：{c1}万<br/>支付：{c2}万'
+                formatter: function(a,b,c){
+                    if(a==null || a.length==0) return '没有数据';
+                    var res = a[0].name+'<br/>';
+                    for(var i=0;i< a.length;i++){
+                        res=res+a[i].seriesName+'：'+a[i].value+'公斤/头'+'<br/>';
+                    }
+                    return res;
+                }
+            },
+            toolbox: {
+                show : false,
+                orient : 'vertical',
+                y : 'center',
+                feature : {
+                    mark : {show: true},
+                    magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            legend : {
+                data : ['出栏均重'],
+                show : false,
+                textStyle : {
+                    color: '#fff'
+                }
+            },
+            grid: {
+                x: 80,
+                y: 5,
+                x2: 25,
+                y2: 35
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap: true,
+                    axisTick: {onGap: false},
+                    splitLine: {show: false},
+                    axisLabel:{
+                        interval:function(index,obj){
+                            if(isAxisLabelPoint(index,6,date.length-1)){
+                                return true;
+                            }
+                        },
+                        textStyle:{
+                            color: '#fff'
+                        }
+                    },
+                    data : date
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    scale: true,
+                    splitNumber: 4,
+                    axisLabel: {
+                        formatter: '{value} 公斤/头'
+                        ,textStyle:{
+                            color: '#fff'
+                        }
+                    },
+                    splitArea: {show: false}
+                }
+            ],
+            series : [
+                {
+                    name: '出栏均重',
+                    type: 'line',
+                    data: clJZ
+                }
+            ]
+        };
+
+        require(['echarts', 'echarts/chart/line'], function (ec) {
+            var myChartCJ = ec.init(document.getElementById('szcljz'));
+            myChartCJ.setOption(szcljzOption);
+        })
+    }
+    //--------------------生猪出栏均重----------end-----------------
+</script>

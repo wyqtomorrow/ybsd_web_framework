@@ -1,0 +1,170 @@
+#parse("mob/common/head.vm")
+<script src="${link.contextPath}/mstatic/js/common/public.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/member/member_my.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/znt.min.js" type="text/javascript"></script>
+<title>我的</title>
+<style>
+    .d_utop{background:#5495e6 url(${link.contextPath}/mstatic/img/user1.png) no-repeat 0px 0px;background-size:100% 164px;height:164px;top:0px;padding:20px 0px;position:relative;}
+</style>
+</head>
+<body>
+<input type="hidden" id="tagFlag" value="3"/>
+<input type="hidden" id="auditCode" value="$!userInfo.auditStatus"/>
+<header class="mui-bar  d_utop relative">
+    <div class="d_message t_right" id="messId">
+    ##        <a class="dm_xx"></a>
+    </div>
+    <div class=" t_center">
+        <div class="du_uimg" >
+            #if("$!{myMemberResForm.headIcon}" == "")
+                <img src="${link.contextPath}/mstatic/img/defaulthead.png"/>
+            #else
+                <img src="$!{myMemberResForm.headIcon}"/>
+            #end
+
+        </div>
+        <div class="box10"></div>
+        <p class="white">$!{myMemberResForm.name}</p>
+        <a href="" id="ziliao" class="bjzl white"><i class="iconfont icon-bianji2 white"></i>编辑资料</a>
+    </div>
+</header>
+<div class="mui-page-content">
+    <input type="hidden" id="boId" value="$!{myMemberResForm.boId}">
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul">
+        <li class="mui-table-view-cell"  id="my_publish">
+            <a class="mui-navigate-right icon1 " href="#">
+                我发布的
+                <span class="mui-pull-right update t_right d_blue">$!{myMemberResForm.myPushGoodsCount}</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell" id="my_selled">
+            <a class="mui-navigate-right icon2" href="#">
+                我卖出的
+                <span class="mui-pull-right update t_right d_blue">$!{myMemberResForm.mySellOrderCount}</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell" id="my_buy">
+            <a class="mui-navigate-right icon3" href="#">
+                我买到的
+                <span class="mui-pull-right update t_right d_blue">$!{myMemberResForm.myBuyOrderCount}</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell" id="my_fav">
+            <a class="mui-navigate-right icon9" href="#">
+                我的收藏
+                <span class="mui-pull-right update t_right d_blue"></span>
+            </a>
+        </li>
+        #if($userInfo.areaAxisList!="")
+            <li class="mui-table-view-cell" id="my_audit">
+                <a class="mui-navigate-right icon10" href="#">
+                    审核工具
+                    <span class="mui-pull-right update t_right d_blue"></span>
+                </a>
+            </li>
+        #end
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul" id="toAddr">
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right icon4">
+                我的地址
+                <span class="mui-pull-right update t_right black3">$!{myMemberResForm.defalutAddr}</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box15"></div>
+    <div class="mui-content-padded">
+        <button type="button" class="mui-btn mui-btn-block d_bl white d_nobor" id="logout">退出</button>
+    </div>
+</div>
+    #parse("mob/common/bottomTab.vm")
+</body>
+<script src="${link.contextPath}/mstatic/js/message/message_frame.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#logout").on("tap", function () {
+            //调用删除token
+            var param = {};
+            var successBack = function (data) {
+                if (data.code == 0) {
+                    $.cookie('ticketCookie', null);
+                    znt.zntLogOut();
+                }else if(data.code == 5){
+                    znt.zntLogOut();
+                } else if(data.code == 10001){
+                }else{
+                    muiAlert("提示信息",data.exception)
+                }
+            }
+            var errorBack = function () {
+                mui.alert("删除token错误");
+            }
+            muiGet("appLogin/deleteToken", param, successBack, errorBack);
+
+        });
+
+        $("#head_icon").on("tap", function () {
+            znt.chooseImage({
+                sizeType: 1, // 1.原图 2.根据设备分辨率压缩图 3.H5自定义尺寸(如果是3，需要写maxWidth、maxHeight)
+                sourceType: 3, // 1相机 2图库 3客户端交给用户选择
+                success: function (res) {
+                    var fileUrl = res.uploadUrl; // 实际上传的图片路径
+                    fileUrl.replace("http", "https");
+                    document.getElementById("head_icon").src = fileUrl + "?imageView2/1/w/60/h/60";
+                    var obj = new Object();
+                    obj.headIcon = fileUrl;
+                    muiGet("mob/member/updHeadIcon", obj, null, null);
+                },
+                cancel: function (res) {
+                    mui.alert(res);
+                },
+                fail: function (res) {
+                    mui.alert(res.errorCode);
+                    mui.alert(res.msg);
+                }
+            });
+        });
+    });
+    mui("body").on("tap", "#ziliao", function () {
+        var params = {}
+        var successCb = function (data) {
+            if(data.data.auditStatus == 'CS'){
+                self.location.href = "/mob/member/auditUser";
+            }else if(data.data.auditStatus == 'BTG'){
+                self.location.href = "/mob/member/auditReject";
+            }else{
+                self.location.href = "/mob/member/myData";
+            }
+        };
+        muiPost("mob/member/editData", params, successCb, null);
+    })
+    mui("body").on("tap", "#toAddr", function () {
+        self.location.href = "/mob/memberAddr/myAddr";
+    })
+
+    mui("body").on("tap","#my_publish", function () {
+        self.location.href = "${link.contextPath}/mob/goods/queryMyGoodsListView/supply_list";
+    });
+    mui("body").on("tap","#my_selled", function () {
+        self.location.href = "${link.contextPath}/mob/order/orderSellList";
+    });
+    mui("body").on("tap","#my_buy", function () {
+        self.location.href = "${link.contextPath}/mob/order/orderBuyList";
+    });
+    mui("body").on("tap","#my_fav", function () {
+        self.location.href = "${link.contextPath}/mob/memberFavorite/myFav";
+    });
+    mui("body").on("tap","#my_audit", function () {
+        var successCb = function (data) {
+            if(data.areaAxisList==""){
+                muiAlert("提示信息", "您当前未被分配工作区域，请联系管理人员!");
+                return;
+            }else{
+                self.location.href = "${link.contextPath}/mob/member/queryAuditMessageInfo";
+            }
+        };
+        muiGet("mob/member/checkAreaList", {}, successCb, null);
+    });
+</script>
+</html>

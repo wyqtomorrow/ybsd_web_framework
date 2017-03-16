@@ -1,0 +1,74 @@
+#*<header class="mui-bar mui-bar-nav mjdp d_border_b" id="addHead">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+    <h1 class="mui-title yahei f15">新增地址</h1>
+</header>
+<header class="mui-bar mui-bar-nav mjdp d_border_b" id="modifyHead">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+    <h1 class="mui-title yahei f15">修改地址</h1>
+</header>*#
+<div class="mui-content mui-content1" id="xinzeng">
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                联系人
+				<span class="mui-pull-right1 t_right">
+					<input type="text" placeholder="请填写" id="name" class="text t_right">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                联系电话
+				<span class="mui-pull-right1 t_right">
+					<input type="number" maxlength="11" placeholder="11位手机号码" id="tel"
+                           class="text t_right">
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right " id="showCityPicker3">
+                所在地区
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="area" class="text t_right"
+                           readonly="readonly">
+					<input type="hidden" id="tval2">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                详细地址
+				<span class="mui-pull-right1 t_right">
+					<input type="text" placeholder="请填写" id="detailAddr" class="text t_right">
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <div class="b_white paddding10 clear black3">
+        设为默认地址
+        <div class="mui-pull-right swish_o_f yahei f12 positionre clear">
+            <label class="mui-pull-right">
+                <div id="moren" class="mui-switch mui-switch-mini mui-switch-blue">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="box80" id="geshi2"></div>
+<nav class="mui-bar mui-bar-tab d_addres d_bgray" id="dibu2">
+    <div class="mui-content-padded">
+        <button type="button" class=" mui-btn mui-btn-block d_bl white d_nobor" id="saveBtn"
+                onclick="saveAddr()">保存
+        </button>
+        <div class="box10"></div>
+        <button type="button" class=" mui-btn mui-btn-block d_grey white d_nobor" onclick="toPreviou()">返回</button>
+        <div class="box10"></div>
+    </div>
+</nav>

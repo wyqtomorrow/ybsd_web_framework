@@ -1,0 +1,108 @@
+#parse("mob/common/head.vm")
+<title>我的资料</title>
+</head>
+<body>
+#*<header class="mui-bar mui-bar-nav mjdp d_border_b">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title yahei f15">我的资料</h1>
+</header>*#
+<div class="mui-content mui-content1  ">
+    <ul class="mui-table-view d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell mui-media">
+            <a class="mui-navigate-right " id="picture">
+                #if("$!{myMemberResForm.headIcon}" == "")
+                    <img class="mui-media-object mui-pull-left radius100 d_bor" src="/mstatic/img/defaulthead.png"
+                         id="head_icon"/>
+                #else
+                    <img class="mui-media-object mui-pull-left  radius100 d_bor uimg" width="42" id="head_icon"
+                         src="$!{myMemberResForm.headIcon}"/>
+                #end
+                <span class="mui-pull-right  t_right margin10-t">
+					更改
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                公司名
+                #if("$!{myMemberResForm.companyName}" == "")
+                    <span class="mui-pull-right1 t_right">
+                        $!{myMemberResForm.realName}
+                    </span>
+                #else
+                    <span class="mui-pull-right1 t_right">
+                        $!{myMemberResForm.companyName}
+				    </span>
+                #end
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                我的姓名
+				<span class="mui-pull-right1 t_right">
+                    $!{myMemberResForm.realName}
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                手机号码
+				<span class="mui-pull-right1 t_right arial">
+                    $!{myMemberResForm.mobilePhone}
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                用户类型
+				<span class="mui-pull-right1 t_right">
+                    $!{myMemberResForm.memberType}
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                所在地区
+				<span class="mui-pull-right1 t_right">
+                    $!{myMemberResForm.memberAddr}
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+#* <div class="mui-content-padded">
+     <a type="button" class="tjbtn mui-btn mui-btn-block d_bl white d_nobor"  href="13编辑资料.html">编辑</a>
+ </div>*#
+</div>
+    #parse("mob/common/bottomTab.vm")
+<script type="text/javascript">
+    $(function () {
+
+        $("#picture").on("tap", function () {
+            znt.chooseImage({
+                sizeType: 1, // 1.原图 2.根据设备分辨率压缩图 3.H5自定义尺寸(如果是3，需要写maxWidth、maxHeight)
+                sourceType: 3, // 1相机 2图库 3客户端交给用户选择
+                success: function (res) {
+                    var fileUrl = res.uploadUrl; // 实际上传的图片路径
+                    fileUrl.replace("http", "https");
+                    document.getElementById("head_icon").src = fileUrl + "?imageView2/1/w/60/h/60";
+                    var obj = new Object();
+                    obj.headIcon = fileUrl;
+                    muiGet("mob/member/updHeadIcon", obj, null, null);
+                },
+                cancel: function (res) {
+                },
+                fail: function (res) {
+                    mui.alert(res.msg);
+                }
+            });
+        });
+    });
+</script>
+    #parse("mob/common/foot.vm")

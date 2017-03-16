@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>买驴</title>
+    #parse("mob/common/head.vm")
+</head>
+<body>
+<input type="hidden" id="tagFlag" value="1">
+<header class="mui-bar  d_utop2 relative">
+    <div class="d_message t_right" id="messId">
+##        <a class="dm_xx"></a>
+    </div>
+    <div class=" t_center">
+        <a href="/mob/member/myMember">
+            <div class="du_uimg">#if("$!{member.headIcon}" == "")
+                <img src="${link.contextPath}/mstatic/img/defaulthead.png"/>
+            #else
+                <img src="$!{member.headIcon}"/>
+            #end</div>
+            <div class="box10"></div>
+            #if("$!member.companyName" != '')
+                <p class="white">$!member.companyName</p>
+            #else
+                <p class="white">$!member.realName</p>
+            #end
+        </a>
+        <div class="du_search padd15 relative ">
+            <div class="mui-input-row mui-search">
+                <input type="text" class="mui-input-search text" id="searchCon" placeholder="卖家名称/手机号码/地区"><a
+                    id="search" class="sbtn d_blue"><i class="mui-icon mui-icon-search"></i><em class="f14">搜索</em></a>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="mui-content mui-content1">
+    <ul class="mui-table-view mui-grid-view d_list pad15">
+        <li class="mui-table-view-cell mui-media mui-col-xs-4">
+            <a href="/mob/goods/queryGoodsListView/supply_list?category=1001">
+                <img class="mui-media-object radius5" src="${link.contextPath}/mstatic/img/d_pic1.png">
+                <div class="mui-media-body">买肉驴</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4">
+            <a href="/mob/goods/queryGoodsListView/supply_list?category=1002">
+                <img class="mui-media-object radius5" src="${link.contextPath}/mstatic/img/d_pic2.png">
+                <div class="mui-media-body">买驴驹</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4">
+            <a href="/mob/goods/queryGoodsListView/supply_list?category=1003">
+                <img class="mui-media-object radius5" src="${link.contextPath}/mstatic/img/d_pic3.png">
+                <div class="mui-media-body">买种驴</div>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul">
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right icon8 " href="${link.contextPath}/mob/goods/queryGoodsListView/supply_list">
+                供应大厅
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right icon1" href="${link.contextPath}/mob/goods/goodsPurchaseSetup">
+                发布求购信息
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right icon6" href="${link.contextPath}/mob/goods/queryMyGoodsListView/purchase_list">
+                我的求购
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right icon7" href="${link.contextPath}/mob/order/orderBuyList">
+                我的订单
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="box80"></div>
+    #parse("mob/common/bottomTab.vm")
+<script src="${link.contextPath}/mstatic/js/message/message_frame.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/goods/goods_purchase_home.js" type="text/javascript"></script>
+</body>
+</html>

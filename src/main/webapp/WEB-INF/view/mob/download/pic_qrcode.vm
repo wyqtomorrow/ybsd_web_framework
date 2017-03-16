@@ -1,0 +1,27 @@
+#parse("mob/common/head.vm")
+<script src="${link.contextPath}/mui/js/public.js" type="text/javascript"></script>
+<title>二维码页面</title>
+<div class="border">
+    <input type="hidden" id="lvUrl" value="$!lvUrl"/>
+    <div  style="width:48px;">
+        <div class="box10"></div>
+        <div class="box10"></div>
+        <div class="box10"></div>
+        <p class="white arial f24"><div id="code" width="181"></div></p>
+        <div class="box10"></div>
+        <div class="box10"></div>
+        <div class="box10"></div>
+        <p class="f14 white">驴联网扫一扫</p>
+        <div class="box10"></div>
+        <div class="box10"></div>
+    </div>
+</div>
+<script type="text/javascript" src="${link.contextPath}/common/jquery.qrcode.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var url = $("#lvUrl").val() + "mob/download/toQrcode"
+        $('#code').qrcode(url);
+    });
+</script>
+</body>
+</html>

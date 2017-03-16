@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>修改供应</title>
+    #parse("mob/common/contextPath.vm")
+    <script src="${link.contextPath}/common/uploadImg.js" type="text/javascript"></script>
+</head>
+<body>
+<input type="hidden" name="categoryId" id="categoryId" value="$!goods.categoryId"/>
+<input type="hidden" name="id" id="id" value="$!goods.id"/>
+#*<header class="mui-bar mui-bar-nav d_border_b" id="ha1">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title yahei f15">更新供应</h1>
+</header>*#
+<div class="mui-content mui-content1" id="ha2">
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        #if($!goods.categoryId!=1001 && $!goods.categoryId!=1002)
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right " id='pl'>
+                    <em class="d_red d_bt">*</em>品类
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="peilei" value=$!{goods.categoryName} class="text
+					t_right" readonly="readonly" >
+					<input type="hidden" id="plInput" value=$!{goods.categoryId}>
+				</span>
+                </a>
+            </li>
+        #end
+
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right " id='pz'>
+                品种
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="pinzhong" value="$!{goods.mapAttr.GAV_VARIETY}"
+                           class="text t_right"
+                           readonly="readonly" >
+					<input type="hidden" id="pzInput" value="$!{goods.mapAttr.GAV_VARIETY_CODE}">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right " id='tx'>
+                <em class="d_red d_bt">*</em>体型
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="tixing" value="$!{goods.mapAttr.GAV_SHAPE}"
+                           class="text t_right" readonly="readonly" >
+					<input type="hidden" id="txInput" value="$!{goods.mapAttr.GAV_SHAPE_CODE}">
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right " id="xb">
+                <em class="d_red d_bt">*</em>性别
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="sex" value="$!{goods.mapAttr.GAV_GENDER}" class="text
+					t_right" readonly="readonly" >
+					<input type="hidden" id="xbInput" value="$!{goods.mapAttr.GAV_GENDER_CODE}">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right " id="ms">
+                毛色
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="maose" class="text t_right" value="$!{goods.mapAttr.GAV_HAIR_COLOR}" readonly="readonly" >
+					<input type="hidden" id="msInput" value="$!{goods.mapAttr.GAV_HAIR_COLOR_CODE}">
+				</span>
+            </a>
+        </li>
+        #if($!goods.categoryId!="1002")
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right " id="nl">
+                    <em class="d_red d_bt">*</em>年龄
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="age" class="text t_right" value="$!{goods.mapAttr.GAV_YEAR_AGE}" readonly="readonly" >
+					<input type="hidden" id="nlInput" value="$!{goods.mapAttr.GAV_YEAR_AGE_CODE}">
+				</span>
+                </a>
+            </li>
+            #else
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right " id="nl">
+                        <em class="d_red d_bt">*</em>月龄
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="age" class="text t_right" value="$!{goods.mapAttr.GAV_MONTH_AGE}" readonly="readonly" >
+					<input type="hidden" id="nlInput" value="$!{goods.mapAttr.GAV_MONTH_AGE_CODE}">
+				</span>
+                    </a>
+                </li>
+        #end
+
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                <em class="d_red d_bt">*</em>估重
+				<span class="mui-pull-right2 gz t_right gray_l">
+                    <input type="text" placeholder="最小值" id="gzMin"  value="$!{goods.mapAttr.GAV_WEIGHT_MIN}" class="text black3 ">公斤 ——
+					<input type="text" placeholder="最小值" id="gzMax"  value="$!{goods.mapAttr.GAV_WEIGHT_MAX}" class="text black3 ">公斤
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                身高/厘米
+				<span class="mui-pull-right1  t_right">
+					<input type="text" placeholder="请填写" id="sgInput" value="$!{goods.mapAttr.GAV_HEIGHT}" class="text t_right">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                体长/厘米
+				<span class="mui-pull-right1 t_right">
+					<input type="text" placeholder="请填写" id="tcInput" value="$!{goods.mapAttr.GAV_LENGTH}" class="text t_right">
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                <em class="d_red d_bt">*</em>数量/头
+				<span class="mui-pull-right1  t_right">
+					<input type="text" placeholder="请填写-必填" id="slInput" value="$!{goods.goodsSpecResForm.origStock}"
+                           class="text t_right">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                <em class="d_red d_bt">*</em>价格/元/公斤
+				<span class="mui-pull-right1 t_right">
+					<input type="text" placeholder="请填写-必填" id="price" value="$!{goods.goodsSpecResForm.price}"
+                           class="text t_right">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right " id="date" data-options='{"type":"date","beginYear":2014,"endYear":2116}'>
+                <em class="d_red d_bt">*</em>信息有效期
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" value = "$!date.format('yyyy-MM-dd',$!goods.expireTime)"  id="infocheck" class=" text t_right" readonly="readonly" >
+					<input type="hidden" id="tval2" value="$!date.format('yyyy-MM-dd',$!goods.expireTime)">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right " id="showCityPicker3">
+                <em class="d_red d_bt">*</em>交货地址
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="address"  value="$!{goods.addrText}" class="text t_right" readonly="readonly" >
+					<input type="hidden" id="tval2id" value="$!{goods.addrResForm.id}">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right " id="ps">
+                <em class="d_red d_bt">*</em>配送方式
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="peisong" value="$!{goods.logisticsTxt}" class="text t_right" readonly="readonly" >
+					<input type="hidden" id="tval7" value="$!{goods.logistics}">
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-grid-view d_list pad15 wf_img t_left"  id="upImg">
+        #foreach($pic in $!goods.picsUrl)
+            <li class="mui-table-view-cell mui-media mui-col-xs-3">
+                <a href="javascript:;">
+                    <img class="mui-media-object" src="$!pic">
+                    <div class="d_del f14 d_red" onclick="deleteImg(this)"><i class="iconfont icon-shanchu"></i>删除</div>
+                </a>
+            </li>
+        #end
+
+        <li class="mui-table-view-cell mui-media mui-col-xs-3">
+            <input type="text" id="txt1" name="txt1" class="text hied" placeholder="上传图片" readonly="readonly" />
+            <input type="file" id="f1" onChange="txt1.value=this.value" name="f1" class="files hied"  size="1">
+            <a href="javascript:;" class="d_upload" onClick="uploadImg()">
+                <span class="mui-media-object d_add f30"><i class="iconfont icon-tianjiadizhi"></i></span>
+                <div class="d_up f14">上传图片</div>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="relative height150">
+                说明
+                <div class="box10"></div>
+                <div>
+                    <textarea class="text txt" id="description" placeholder="请填写对商品的描述说明！">$!{goods.description}</textarea>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <div class="mui-content-padded">
+        <button type="button" id="publish_info" class="mui-btn mui-btn-block d_bl white d_nobor">发布</button>
+    </div>
+</div>
+<div class="mask1"></div>
+<div class="loadding" id="loading"><img src="${link.contextPath}/mstatic/img/loading.gif"></div>
+<div class="box80" id="ha3"></div>
+    #parse("mob/addr/goods_publish_addr.vm")
+</body>
+<script src="${link.contextPath}/mstatic/js/goods/goods_supply_edit.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/dictionarygetbyparam.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/goods/pur_addr.js" type="text/javascript"></script>
+</html>

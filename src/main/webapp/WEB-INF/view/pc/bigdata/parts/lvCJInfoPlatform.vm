@@ -1,0 +1,147 @@
+<div class="$!class"  id="szcj"></div>
+
+<script type="text/javascript">
+    //--------------------生猪成交量----------start-----------------
+##    function getCJInfoLineData(val){
+##        var startDate = $("#beginMonth").val();
+##        var endDate = $("#toDay").val();
+##        var zhuType = '$!zhuType';
+##        var areaID = $('#areaID').val();
+##        var areaType = $('#areaType').val();
+##
+##        jQuery.ajax({
+##            url:'/zhuExchange/getLineSZJGDataAll',
+##            type:'POST',
+##            data:{"startDate":startDate,"endDate":endDate, "zhuType":zhuType, "areaID":areaID, "areaType":areaType},
+##            dataType:'JSON',
+##            success:function(data){
+##                myobj=eval(data.data);
+##                createBarSZCJData(myobj);
+##            }
+##        });
+##    }
+
+    function createCJInfoLineData(date,cjJE,cjTS) {
+
+        var szcjOption = {
+            backgroundColor: 'transparent',
+            title: {
+                text: '',
+                subtext: '',
+                textStyle : {
+                    color: '#fff'
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+                formatter: function (a, b, c) {
+                    if (a == null || a.length == 0) return '没有数据';
+                    var res = a[0].name + '<br/>';
+                    for (var i = 0; i < a.length; i++) {
+                        if (a[i].seriesName == '成交头数') {
+                            res = res + a[i].seriesName + '：' + a[i].value + '头' + '<br/>';
+                        } else if (a[i].seriesName == '成交金额') {
+                            res = res + a[i].seriesName + '：' + a[i].value + '万元' + '<br/>';
+                        }
+
+                    }
+                    return res;
+                }
+            },
+            legend: {
+                data: ['成交头数', '成交金额'],
+                show:false,
+                textStyle : {
+                    color: '#fff'
+                }
+            },
+            toolbox: {
+                y: -30,
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataZoom: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            grid: {
+                x: 80,
+                y: 5,
+                x2: 65,
+                y2: 35
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    axisLabel:{
+                        interval:function(index,obj){
+                            if(isAxisLabelPoint(index,8,date.length-1)){
+                                return true;
+                            }
+                        },
+//                        interval: 'auto',
+                        textStyle:{
+                            color: '#fff'
+                        }
+                    },
+                    axisTick: {show: true, interval: 'auto', onGap: false},
+                    splitLine: {show: false},
+                    data: date
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    scale: true,
+                    splitNumber: 4,
+                    axisLabel: {
+                        formatter: '{value} 头'
+                        ,textStyle:{
+                            color: '#fff'
+                        }
+                    },
+                    splitArea: {show: false}
+                },
+                {
+                    type: 'value',
+                    scale: true,
+                    show:true,
+                    splitNumber: 4,
+                    min:0,
+                    axisLabel: {
+                        formatter: '{value} 万元'
+                        ,textStyle:{
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {show: true}
+                }
+            ],
+            series: [
+                {
+                    name: '成交头数',
+                    type: 'bar',
+                    data: cjTS
+
+                },
+                {
+                    name: '成交金额',
+                    type: 'bar',
+                    yAxisIndex: 1,
+                    data: cjJE
+
+                }
+            ]
+        };
+        require(['echarts', 'echarts/chart/line', 'echarts/chart/pie', 'echarts/chart/bar', 'echarts/chart/k'], function (ec) {
+            myChartCJ = ec.init(document.getElementById('szcj'));
+            myChartCJ.setOption(szcjOption);
+        })
+    }
+    //--------------------生猪成交量----------end-----------------
+</script>

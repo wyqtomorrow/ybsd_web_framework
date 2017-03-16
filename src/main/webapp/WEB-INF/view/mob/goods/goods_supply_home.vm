@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>卖驴</title>
+    #parse("mob/common/head.vm")
+</head>
+<body>
+<input type="hidden" id="tagFlag" value="0">
+<header class="mui-bar d_utop relative">
+    <div class="d_message t_right" id="messId">
+    ##        <a class="dm_xx"></a>
+    </div>
+    <div class=" t_center">
+        <a href="/mob/member/myMember">
+            <div class="du_uimg">#if("$!{member.headIcon}" == "")
+                <img src="${link.contextPath}/mstatic/img/defaulthead.png"/>
+            #else
+                <img src="$!{member.headIcon}"/>
+            #end</div>
+            <div class="box10"></div>
+            #if("$!member.companyName" != '')
+                <p class="white">$!member.companyName</p>
+            #else
+                <p class="white">$!member.realName</p>
+            #end
+        </a>
+    </div>
+</header>
+<div class="mui-content mui-content1">
+    <ul id="supply" class="mui-table-view mui-grid-view d_list pad15">
+        <li class="mui-table-view-cell mui-media mui-col-xs-4">
+            <a href="javascript:;" onclick="sellLv('1','1001')">
+                <img class="mui-media-object radius5" src="${link.contextPath}/mstatic/img/d_pic1.png">
+                <div class="mui-media-body">卖肉驴</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4">
+            <a href="javascript:;" onclick="sellLv('2','1002')">
+                <img class="mui-media-object radius5" src="${link.contextPath}/mstatic/img/d_pic2.png">
+                <div class="mui-media-body">卖驴驹</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4">
+            <a href="javascript:;" onclick="sellLv('3','1003')">
+                <img class="mui-media-object radius5" src="${link.contextPath}/mstatic/img/d_pic3.png">
+                <div class="mui-media-body">卖种驴</div>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul">
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right icon5 " href="${link.contextPath}/mob/goods/queryGoodsListView/purchase_list">
+                求购大厅
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right icon6" href="${link.contextPath}/mob/goods/queryMyGoodsListView/supply_list">
+                我的供应
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right icon7" href="${link.contextPath}/mob/order/orderSellList">
+                我的订单
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="box80"></div>
+    #parse("mob/common/bottomTab.vm")
+</body>
+<script src="${link.contextPath}/mstatic/js/message/message_frame.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/goods/goods_home.js" type="text/javascript"></script>
+</html>

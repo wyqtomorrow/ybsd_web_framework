@@ -1,0 +1,65 @@
+#parse("mob/common/head.vm")
+    <title>举报</title>
+</head>
+<body>
+#*<header class="mui-bar mui-bar-nav d_border_b">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" ></a>
+    <h1 class="mui-title yahei f15">举报</h1>
+</header>*#
+<div class="mui-content mui-content1">
+    <input type="hidden" id="deBoId" value="$!helpDeskForm.deBoId">
+    <input type="hidden" id="deOperatorBoId" value="$!helpDeskForm.deOperatorBoId">
+    <input type="hidden" id="deUserType" value="$!helpDeskForm.deUserType">
+    <input type="hidden" id="proBoId" value="$!userInfo.boId">
+    <input type="hidden" id="proOperatorBoId" value="$!userInfo.operatorBoId">
+    <input type="hidden" id="proUserType" value="$!userInfo.userType">
+    <input type="hidden" id="busId" value="$!helpDeskForm.busId">
+    <input type="hidden" id="busType" value="$!helpDeskForm.busType">
+    <input type="hidden" id="goodsRole" value="$!helpDeskForm.goodsRole">
+    <input type="hidden" id="codeValue">
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form ip_href">
+        <input type="hidden" class="radio">
+        <li class="mui-table-view-cell cur"id="code0" data-id>
+            <a class="relative" id="jubao0">
+				<span class="mui-pull-right1 t_right">
+					<i href="javascript:;" class="chk "></i>
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell"id="code1" data-id>
+            <a class="relative" id="jubao1">
+				<span class="mui-pull-right1 t_right">
+					<i href="javascript:;" class="chk"></i>
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell" id="code2"data-id>
+            <a class="relative" id="jubao2">
+				<span class="mui-pull-right1 t_right">
+					<i href="javascript:;" class="chk"></i>
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell"id="code3" data-id>
+            <a class="relative" id="jubao3">
+				<span class="mui-pull-right1 t_right">
+					<i href="javascript:;" class="chk"></i>
+				</span>
+            </a>
+        </li>
+    </ul>
+    <li class="mui-table-view-cell1">
+        <textarea class="text txt black3" id="reason" maxlength="200" placeholder="如有其它原因，请填写(不超过200字)"></textarea>
+    </li>
+    <div class="box10"></div>
+    <div class="mui-content-padded">
+        <button type="button" class="tjbtn mui-btn mui-btn-block d_bl white d_nobor" id="submit">提交</button>
+    </div>
+</div>
+<script src="${link.contextPath}/mstatic/js/help/help_desk_form.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/dictionarygetbyparam.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mui/js/muiDialog.js" type="text/javascript"></script>
+<script>
+   contextPath = "${link.contextPath}";
+</script>
+#parse("mob/common/foot.vm")

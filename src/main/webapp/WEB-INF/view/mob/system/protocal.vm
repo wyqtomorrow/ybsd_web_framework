@@ -1,0 +1,47 @@
+#parse("mob/common/head.vm")
+<title>买卖家入驻协议</title>
+</head>
+<body>
+#*<header class="mui-bar mui-bar-nav d_border_b">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title yahei f15">买卖家入驻协议</h1>
+</header>*#
+<div class="mui-content mui-content1">
+    <div class="padd15 ">
+        <p class="gray_6 fb">致：全体驴联网用户：</p>
+        <div class="box10"></div>
+        <p class="gray_6">为维护驴联网秩序，保障您（用户）与平台的合法权益，同时明确您与平台的权利义务，依据相关法律法规，您将与平台签署一系列协议，以供遵照执行。</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">在您签署协议前，特提请您注意将要签署的一系列协议所需关注的重要事项，请您务必仔细阅读、充分理解，确保在您真实意思表示的前提下签署。</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">您需重点关注的重要事项主要包括：</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">一、协议签署方式。</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">您与平台签署的一系列协议均采用数据电文形式，以电子签名的方式签署。您一经在平台点击同意，协议即具有法律效力并对您产生约束力。 </p>
+        <div class="box10"></div>
+        <p class="gray_6 ">二、协议的重点条款</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">各个协议中字体加粗部分的内容为重点提醒您注意的内容，包括但不限于：</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">1、免除、限制平台责任的条款；</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">2、免除或者限制您权利的条款；</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">3、其他与您切身利益直接相关的条款。</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">对于字体加粗部分的内容，请您务必认真阅读并理解！</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">三、风险自担条款。</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">1、交易风险。您在平台的交易可能存在的宏观经济风险、政策风险、违约风险等，均由您自行承担，平台不对任何用户或任何交易提供任何明示或默示的担保。</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">2、信息泄露风险。您在平台的账户、密码、验证码等交易口令是平台识别您身份及指令的唯一标志，您应妥善保管上述信息，如因前述信息泄露所致的损失，由您自行承担。</p>
+        <div class="box10"></div>
+        <p class="gray_6 ">四、平台有权单方修改平台规则与协议。 </p>
+        <div class="box10"></div>
+        <p class="gray_6 ">平台可以根据国家法律法规变化及维护交易秩序、保护消费者权益以及业务调整等需要，不时对平台规则或协议进行修改或补充，修改或补充后的规则或协议经平台公示后即对您生效。如您不同意平台的上述修改与补充的，您应自变更或补充事项生效之日起停止使用平台服务，否则，视为您同意已生效的变更或补充事项。</p>
+    </div>
+</div>
+</body>
+</html>

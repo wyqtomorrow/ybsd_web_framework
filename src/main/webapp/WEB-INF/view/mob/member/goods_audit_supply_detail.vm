@@ -1,0 +1,182 @@
+#parse("mob/common/head.vm")
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>供应详情</title>
+</head>
+<body>
+
+<div class="mui-content mui-content1 m_content">
+    <div id="slider" class="mui-slider mui_adver" >
+        <div class="mui-slider-group mui-slider-loop">
+            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+            #if($!{goods.picsUrl.size()} >0)
+                #set($i=$!goods.picsUrl.size())
+                #set($k=$i-1)
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="#">
+                        <img src="$!goods.picsUrl.get($k)" style="height:360px ">
+                    </a>
+                </div>
+                #foreach($pics in $goods.picsUrl)
+                    <div class="mui-slider-item">
+                        <a href="javascript:;">
+                            <img src="$pics" style="height:360px ">
+                        </a>
+                    </div>
+                #end
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="javascript:;">
+                        <img src="$!goods.picsUrl.get(0)" style="height:360px ">
+                    </a>
+                </div>
+            #else
+                <div class="mui-slider-item">
+                    <a href="javascript:;">
+                        <img src="${link.contextPath}/mstatic/img/banner.png">
+                    </a>
+                </div>
+            #end
+        </div>
+        <div class="mui-slider-indicator">
+            #if($!goods.picsUrl)
+                #foreach($pics in $goods.picsUrl)
+                    #if($!velocityCount==1)
+                        <div class="mui-indicator mui-active"></div>
+                    #else
+                        <div class="mui-indicator"></div>
+                    #end
+                #end
+            #else
+                <div class="mui-indicator mui-active"></div>
+            #end
+        </div>
+    </div>
+    <div class="padd15 b_white">
+        #if($goods.categoryId!='1002')
+            #if($goods.mapAttr.GAV_VARIETY)
+                <p class="f15 black3">$!{goods.mapAttr.GAV_VARIETY}-$!{goods.mapAttr.GAV_YEAR_AGE}-$!{goods.categoryName}</p>
+            #else
+                <p class="f15 black3">$!{goods.mapAttr.GAV_YEAR_AGE}-$!{goods.categoryName}</p>
+            #end
+        #else
+            #if($goods.mapAttr.GAV_VARIETY)
+                <p class="f15 black3">$!{goods.mapAttr.GAV_VARIETY}-$!{goods.mapAttr.GAV_MONTH_AGE}-$!{goods.categoryName}</p>
+            #else
+                <p class="f15 black3">$!{goods.mapAttr.GAV_MONTH_AGE}-$!{goods.categoryName}</p>
+            #end
+        #end
+        <div class="box10"></div>
+        <table  class="sj_data" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <p class="black3">数量</p>
+                    <p class="black3"><em class="fb d_blue arial f15">$number.integer($!goods.goodsSpecResForm.origStock)</em>$!{goods.goodsSpecResForm.stockUnitTxt}</p>
+                </td>
+                <td>
+                    <p class="black3">估重</p>
+                    <p class="black3"><em class="fb d_blue arial f15">$!{goods.mapAttr.GAV_WEIGHT_MIN}--$!{goods.mapAttr.GAV_WEIGHT_MAX}</em>$!{goods.goodsSpecResForm.numUnitTxt}/$!{goods.goodsSpecResForm.stockUnitTxt}</p>
+                </td>
+                <td>
+                    <p class="black3">价格</p>
+                    <p class="black3"><em class="fb d_blue arial f15">$!{goods.goodsSpecResForm.price}</em>元/$!{goods.goodsSpecResForm.numUnitTxt}</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">商品编号</label>
+            <div class="mui-col-xs-9 block black3 arial">$!{goods.id}</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">性别</label>
+            <div class="mui-col-xs-9 block black3">$!{goods.mapAttr.GAV_GENDER}</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">毛色</label>
+            <div class="mui-col-xs-9 block black3">$!{goods.mapAttr.GAV_HAIR_COLOR}</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">体型</label>
+            <div class="mui-col-xs-9 block black3">$!{goods.mapAttr.GAV_SHAPE}</div>
+        </li>
+        #if($!goods.mapAttr.GAV_HEIGHT && $goods.mapAttr.GAV_HEIGHT!='')
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">体高</label>
+                <div class="mui-col-xs-9 block black3">$!{goods.mapAttr.GAV_HEIGHT}cm</div>
+            </li>
+        #end
+        #if($!goods.mapAttr.GAV_LENGTH && $goods.mapAttr.GAV_LENGTH!='')
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">体长</label>
+            <div class="mui-col-xs-9 block black3">$!{goods.mapAttr.GAV_LENGTH}cm</div>
+        </li>
+        #end
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">所在地</label>
+            <div class="mui-col-xs-9 block black3">$!{goods.addrText}</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">配送方式</label>
+            <div class="mui-col-xs-9 block black3">$!{goods.logisticsTxt}</div>
+        </li>
+        #if($!goods.memberResForm)
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">用户姓名</label>
+                <div class="mui-col-xs-9 block black3">$!{goods.memberResForm.userName}</div>
+            </li>
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">联系方式</label>
+                <div class="mui-col-xs-9 block black3 arial">$!{goods.memberResForm.mobilePhone}</div>
+            </li>
+        #end
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block arial">发布时间</label>
+            <div class="mui-col-xs-9 block black3">$!goods.publishTimeTxt</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block arial">审核状态</label>
+            #if($!goods.status=='CSH' || $!goods.status=='WSH')
+                <div class="mui-col-xs-9 block black3"><span class="fbspan fbspan1  d_bgrey  white">未审核</span></div>
+            #else
+                <div class="mui-col-xs-9 block black3"><span class="fbspan fbspan1  d_bgrey  white">已审核</span></div>
+            #end
+        </li>
+    </ul>
+</div>
+<div class="box80"></div>
+<nav class="mui-bar mui-bar-tab d_addres b_white m_bar">
+    <div class="mui-content-padded">
+        #if($!goods.status=='CSH' || $!goods.status=='WSH')
+            <button type="button" class=" mui-btn mui-btn-block d_bl white d_nobor" data-id="$!{goods.id}"
+                    data-status="SJ"
+                    id="updateGoodsStatus">通过</button>
+            <div class="box10"></div>
+            <button type="button" class=" mui-btn mui-btn-block mui-btn-danger white d_nobor" data-id="$!{goods.id}" data-status="BTG"
+                    id="updateGoodsStatus">驳回</button>
+            <div class="box10"></div>
+        #end
+    </div>
+</nav>
+</body>
+<script type="text/javascript">
+    $("body").on("tap", "#updateGoodsStatus", function () {
+        var id = $(this).attr("data-id");
+        var status = $(this).attr("data-status");
+        var url = "mob/goods/updateStatusByOffAndOn";
+        var param = {};
+        param.id=id;
+        param.status=status;
+        var successBack = function (result) {
+            if (result.code == "0") {
+                self.location.href = "/mob/goods/queryGoodsSupplyAuditList";
+            }
+        }
+        muiReqJsonPost(url, param, successBack);
+    });
+</script>
+</html>

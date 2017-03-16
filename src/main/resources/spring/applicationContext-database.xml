@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.1.xsd ">
+
+  <!--tomcat jdbc pool数据源配置 -->
+  <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 基本属性-->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${alibaba.jdbc.initialSize}" />
+		<property name="minIdle" value="${alibaba.jdbc.minIdle}" />
+		<property name="maxActive" value="${alibaba.jdbc.maxActive}" />
+		<property name="testWhileIdle" value="true" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${alibaba.jdbc.maxWait}" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${alibaba.jdbc.minEvictableIdleTimeMillis}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${alibaba.jdbc.timeBetweenEvictionRunsMillis}" />
+		<!-- 解密密码必须要配置的项 -->
+		<property name="connectionProperties" value="config.decrypt=false" />
+		<!-- 超过时间限制是否回收 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间；单位为秒。180秒=3分钟 -->
+		<property name="removeAbandonedTimeout" value="${alibaba.jdbc.removeAbandonedTimeout}" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" />
+	</bean>
+
+  <!-- mybatis -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+    <property name="mapperLocations" value="classpath:com/gqcp/**/dao/mapper/xml/*Mapper.xml" />
+    <property name="plugins">
+       <array>
+           <bean class="com.github.pagehelper.PageInterceptor">
+               <property name="properties">
+                   <value>
+                       offsetAsPageNum=true
+                       rowBoundsWithCount=true
+                       pageSizeZero=true
+                       reasonable=true
+                   </value>
+               </property>
+           </bean>
+       </array>
+   </property>
+  </bean>
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    <property name="basePackage" value="com.gqcp.**.dao.mapper" />
+  </bean>
+
+  <bean id="transactionManager"
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+
+  <aop:aspectj-autoproxy />
+
+  <!-- 声明式事务 -->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="noTx*" propagation="NOT_SUPPORTED" />
+      <tx:method name="*" propagation="REQUIRED" />
+    </tx:attributes>
+  </tx:advice>
+
+  <aop:config>
+    <aop:pointcut expression="execution(* com.gqcp.**.service..*(..))"
+      id="ops" />
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="ops" />
+  </aop:config>
+
+</beans>

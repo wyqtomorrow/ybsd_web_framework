@@ -1,0 +1,228 @@
+#parse("mob/common/head.vm")
+    <script src="${link.contextPath}/mui/js/public.js" type="text/javascript"></script>
+    <title>求购详情</title>
+</head>
+<body>
+<input type="hidden" id="publish_time" value="$!{goods.publishTime}">
+#*<header class="mui-bar mui-bar-nav d_border_b">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title yahei f15">求购详情</h1>
+</header>*#
+<div class="mui-content mui-content1">
+    <input type="hidden" id="deBoId" value="$!goods.sellerBoId">
+    <input type="hidden" id="deOperatorBoId" value="$!goods.sellerOperatorBoId">
+    <input type="hidden" id="deUserType" value="$!goods.sellerUserType">
+    <input type="hidden" id="busId" value="$!goods.id">
+    <input type="hidden" id="urlPic" value="$!goods.thumbnailUrl">
+    <input type="hidden" id="description" value="$!goods.description">
+    <input type="hidden" id="llwUrl" value="$!llwUrl">
+    <input type="hidden" id="categoryName" value="$!goods.categoryName">
+    <input type="hidden" id="variety" value="$!goods.mapAttr.GAV_VARIETY">
+    <input type="hidden" id="age" value="$!goods.mapAttr.GAV_YEAR_AGE">
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="relative" >
+                品类<span class="fbspan margin10-l d_bred raidus5 white f12" id="publish_time_befor">$!{goods.publishTimeTxt}</span>
+				<span class="mui-pull-right1  t_right">
+                    $!{goods.categoryName}
+				</span>
+            </a>
+        </li>
+        #if("$!goods.mapAttr.GAV_VARIETY" != "")
+            <li class="mui-table-view-cell">
+                <a class="relative" >
+                    品种
+				<span class="mui-pull-right1  t_right">
+                    $!{goods.mapAttr.GAV_VARIETY}
+				</span>
+                </a>
+            </li>
+        #end
+        <li class="mui-table-view-cell">
+            <a class="relative" >
+                数量
+				<span class="mui-pull-right1  t_right">
+					<em class="d_blue arial">$number.integer($!goods.goodsSpecResForm.origStock)</em>头
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative" >
+                体型
+				<span class="mui-pull-right1  t_right">
+					<em class="d_blue arial">$!{goods.mapAttr.GAV_SHAPE}</em>
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative" >
+                估重
+				<span class="mui-pull-right1  t_right">
+					<em class="d_blue arial">$!{goods.mapAttr.GAV_WEIGHT_MIN}--$!{goods.mapAttr.GAV_WEIGHT_MAX}</em>$!{goods.goodsSpecResForm.numUnitTxt}/$!{goods.goodsSpecResForm.stockUnitTxt}
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative" >
+                身高
+				<span class="mui-pull-right1  t_right">
+					<em class="d_blue arial">$!{goods.mapAttr.GAV_HEIGHT}</em>
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative" >
+                体长
+				<span class="mui-pull-right1  t_right">
+					<em class="d_blue arial">$!{goods.mapAttr.GAV_LENGTH}</em>
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="relative" >
+                价格
+				<span class="mui-pull-right1  t_right">
+					<em class="d_blue arial">$!{goods.goodsSpecResForm.price}</em>元/$!{goods.goodsSpecResForm.numUnitTxt}
+				</span>
+            </a>
+        </li>
+        #if("$!goods.mapAttr.GAV_ORIG_PLACE" != "")
+            <li class="mui-table-view-cell">
+                <a class="relative" >
+                    产地
+				<span class="mui-pull-right1  t_right">
+                    $!{goods.mapAttr.GAV_ORIG_PLACE}
+				</span>
+                </a>
+            </li>
+        #end
+        #if("$!goods.mapAttr.GAV_GENDER" != "")
+            <li class="mui-table-view-cell">
+                <a class="relative" >
+                    性别
+				<span class="mui-pull-right1  t_right">
+                    $!{goods.mapAttr.GAV_GENDER}
+				</span>
+                </a>
+            </li>
+        #end
+            <li class="mui-table-view-cell">
+                <a class="relative" >
+                    年龄
+				<span class="mui-pull-right1  t_righ arial">
+                    #if($!goods.categoryId=="1002")
+                        $!{goods.mapAttr.GAV_MONTH_AGE}
+                    #else
+                        $!{goods.mapAttr.GAV_YEAR_AGE}
+                    #end
+				</span>
+                </a>
+            </li>
+        <li class="mui-table-view-cell">
+            <a class="relative" >
+                配送方式
+				<span class="mui-pull-right1  t_righ arial">
+                    $!{goods.logisticsTxt}
+                </span>
+            </a>
+        </li>
+        #if("$!goods.mapAttr.GAV_HAIR_COLOR" != "")
+            <li class="mui-table-view-cell">
+                <a class="relative" >
+                    毛色
+				<span class="mui-pull-right1  t_right">
+                    $!{goods.mapAttr.GAV_HAIR_COLOR}
+				</span>
+                </a>
+            </li>
+        #end
+        <li class="mui-table-view-cell">
+            <a class="relative" >
+                信息有效期至
+				<span class="mui-pull-right1  t_right">
+                    $!date.format('yyyy-MM-dd',$!goods.expireTime)
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    #if($!goods.description)
+        <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+            <li class="mui-table-view-cell">
+                <a class="relative height150">
+                    其他说明
+                    <div class="box10"></div>
+                    <div>
+                        <textarea class="text txt">$!{goods.description}</textarea>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    #end
+    <div class="box10"></div>
+    <ul class="mui-table-view d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell mui-media">
+            <a href="javascript:;">
+                #if($!goods.memberResForm.headIcon)
+                    <img class="mui-media-object mui-pull-left" src="$!goods.memberResForm.headIcon">
+                    #else
+                        <img class="mui-media-object mui-pull-left" src="/mstatic/img/banner.png">
+                #end
+                <div class="mui-media-body ">
+                    <p class="mui-ellipsis black3"><em class="f15">$!{goods.addrResForm.name}</em></p>
+                    <p class="mui-ellipsis black3">地区：$!{goods.addrResForm.areaDisplayName}</p>
+                    <p class="mui-ellipsis black3">地址：$!{goods.addrResForm.addr}</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="box80"></div>
+    #if($!view_type == 'my_purchase')
+        <nav class="mui-bar mui-bar-tab d_border_t d_footer">
+            #if($!goods.status=="CS" || $!goods.status=="WSH")
+            <a class="mui-tab-item" href="#" id="updateGoods">
+                <span class="iconfont icon-icon_edit f18 valign"></span>
+                <span class="mui-tab-label">修改</span>
+            </a>
+            #end
+            <a class="mui-tab-item " href="#" id="deleteGoods">
+                <span class="iconfont icon-shanchu f18 "></span>
+                <span class="mui-tab-label">删除</span>
+            </a>
+        </nav>
+    #else
+    <nav class="mui-bar mui-bar-tab d_border_t d_footer">
+        <a class="mui-tab-item"  id="jubao">
+            <span class="iconfont icon-jubao block f20"></span>
+            <span class="mui-tab-label">举报</span>
+        </a>
+        <a class="mui-tab-item " id="share">
+            <span class="iconfont icon-fenxiang block f20" ></span>
+            <span class="mui-tab-label">分享</span>
+        </a>
+        #if($!isShowFav == 1)
+            #if("$!favResForm" != "")
+                <a class="mui_sc" id="delfav" data-id="$!favResForm.id">
+                    <span class="iconfont icon-favoriteselected block f20 d_blue"></span>
+                    <span class="mui-tab-label">已收藏</span>
+                </a>
+            #else
+                <a class="mui_sc" id="addfav" data-id="$!goods.id">
+                    <span class="iconfont icon-favorite1 block f20"></span>
+                    <span class="mui-tab-label">收藏</span>
+                </a>
+            #end
+        #end
+        <a class="mui-tab-item d_bl white" id="phone" data-id="$!{goods.addrResForm.tel}">
+            <span class="mui-tab-label white">拨打电话</span>
+    </a>
+    </nav>
+    #end
+<script src="/mstatic/js/member/favorite_edit.js"></script>
+<script src="${link.contextPath}/mstatic/js/goods/goods_purchase_details.js" type="text/javascript"></script>
+</body>
+</html>

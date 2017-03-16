@@ -1,0 +1,48 @@
+#parse("mob/common/head.vm")
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>审核工具</title>
+</head>
+
+<body>
+
+<div class="mui-content  mui-content1">	
+	<ul class="mui-table-view mui-table-view-chevron d_mui_ul">
+		<li class="mui-table-view-cell" id="user_audit">
+			<a class="mui-navigate-right icon11" href="#">
+				用户审核
+				<span class="mui-pull-right update t_right gray_l">
+					#if($result.userAuditFlag)
+                        <em class="n_new fbspan fbspan1  d_bred  white f12">NEW</em>
+					#end
+				</span>
+			</a>
+		</li>
+		<li class="mui-table-view-cell" id="supply_audit">
+			<a class="mui-navigate-right icon12" href="#">
+				供应商品审核
+				<span class="mui-pull-right update t_right d_blue">
+					#if($result.supplyAuditFlag)
+                        <em class="n_new fbspan fbspan1  d_bred  white f12">NEW</em>
+					#end
+				</span>
+			</a>
+		</li>
+		<li class="mui-table-view-cell" id="percharse_audit">
+			<a class="mui-navigate-right icon13" href="#">
+				求购商品审核
+				<span class="mui-pull-right update t_right d_blue">
+					#if($result.purcharseAuditFlag)
+                        <em class="n_new fbspan fbspan1  d_bred  white f12">NEW</em>
+					#end
+				</span>
+			</a>
+		</li>
+	</ul>
+</div>
+</body>
+<script type="text/javascript" src="/mstatic/js/member/member_audit.js"></script>
+</html>

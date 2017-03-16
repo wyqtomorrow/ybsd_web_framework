@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    #parse("pc/common/head.vm")
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0"/>
+    <title>首页</title>
+    <link href="/pbstatic/css/public.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- header -->
+<div class="header clear">
+    <h1 class="left"><img src="/pbstatic/images/logo.png"/></h1>
+
+    <div class="right uinfo">
+        <a href="" class="uname"><span class="uimg"><img src="/pbstatic/images/user.png"/></span>用户：
+            ${userInfo.userName}</a>
+        <a href="#" class="exit" id="logout"><span class="uimg"><img src="/pbstatic/images/exit.png"/></span>退出</a>
+    </div>
+</div>
+<div class=" connect cindex">
+    <div class="main">
+        <ul class="m_ul clearfix">
+            #foreach($funcId in ${userInfo.roleFuncs})
+                #if($funcId==101)
+                    <li>
+                        <a href="/bigdata/getMainPlatform" target="_blank">
+                            <img src="/pbstatic/images/pic.png"/>
+                            <span>驴交易大数据</span>
+                        </a>
+                    </li>
+                #end
+            #end
+
+            #*<li>
+                <a href="#">
+                    <img src="/pbstatic/images/pic1.png"/>
+                    <span>驴管理大数据</span>
+                </a>
+            </li>*#
+        </ul>
+    </div>
+</div>
+</body>
+<script src="${link.contextPath}/pbstatic/js/login.js" type="text/javascript"></script>
+</html>

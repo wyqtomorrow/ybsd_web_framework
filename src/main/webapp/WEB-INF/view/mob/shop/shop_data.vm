@@ -1,0 +1,112 @@
+#parse("mob/common/head.vm")
+    <title>卖家店铺</title>
+<style>
+    .mui-bar-nav~.mui-content4 .mui-slider.mui-fullscreen{
+top:105px;
+}
+</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav mjdp nopad">
+    <ul class="mui-table-view d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell mui-media">
+            #if($!shop.logo)
+                <img class="mui-media-object mui-pull-left" src="$!{shop.logo}">
+            #else
+                <img class="mui-media-object mui-pull-left" src="/mstatic/img/defaulthead.png">
+            #end
+            <div class="mui-media-body margin10-t">
+                <p class="mui-ellipsis black3 f15">$!shop.shopName</p>
+            </div>
+            #if($!isShowFav == 1)
+                #if("$!favResForm" != "")
+                    <span class="mui-badge m_sc" id="delfav" data-id="$!favResForm.id">
+                        <i class="iconfont icon-favoriteselected f16 d_blue"></i><em>已收藏</em>
+                    </span>
+                #else
+                    <span class="mui-badge m_sc" id="addfav" data-id="$!shop.id">
+                        <i class="iconfont icon-favorite1 f16"></i><em>收藏</em>
+                    </span>
+                #end
+            #end
+        </li>
+    </ul>
+    <ul  class="mui-row d_bgray t_center d_tab">
+        <li class="mui-col-xs-6"><a class="mui-control-item" id="selling">正在出售</a></li>
+        <li class="mui-col-xs-6"><a class="mui-control-item mui-active" id="sellData" >卖家资料</a></li>
+    </ul>
+    <input type="hidden" id="shopId" value="$!shop.id">
+</header>
+#*<header class="mui-bar mui-bar-nav mjdp nopad">
+    <div class="clear padd10_l d_border_b">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title yahei f15">卖家店铺</h1>
+    </div>
+</header>*#
+<div class="mui-content mui-content4">
+    <div id="slider" class="mui-slider mui-fullscreen">
+        <ul id="ziliao" class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form d_border_t">
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">公司名称</label>
+            <div class="mui-col-xs-9 block">$!shop.shopName</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">联系人</label>
+            <div class="mui-col-xs-9 block">$!shop.linkman</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">所在地区</label>
+            <div class="mui-col-xs-9 block">$!shop.areaDisplayName</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">用户身份</label>
+            <div class="mui-col-xs-9 block">$!shop.tags</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">注册时间</label>
+            <div class="mui-col-xs-9 block">$!shop.createTimeStr</div>
+        </li>
+    </ul>
+        <div id="chushou" class="mui-scroll-wrapper mui-slider-group d_border_t ">
+            <div class="mui-scroll">
+                <ul class="mui-table-view new_list" id="List" >
+                </ul>
+            </div>
+        </div>
+    </div>
+##    <div class="box10"></div>
+    #*<div class="b_white">
+        <table class="sj_databe t_center" width="100%" cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td>
+                    <p class="d_blue f18 arial fb">4633</p>
+                    <p class="black3">交易量</p>
+                </td>
+                <td>
+                    <p class="d_blue f18 arial fb">92</p>
+                    <p class="black3">交易笔数</p>
+                </td>
+            </tr>
+            <tr class="end">
+                <td>
+                    <p class="d_blue f18 arial fb">0</p>
+                    <p class="black3">被举报次数</p>
+                </td>
+                <td>
+                    <p class="d_blue f18 arial fb">650</p>
+                    <p class="black3">累积买家数</p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>*#
+</div>
+<script>
+    contextPath = "${link.contextPath}";
+</script>
+<script src="/mstatic/js/member/favorite_edit.js"></script>
+<script src="${link.contextPath}/mui/js/mui.pullToRefresh.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/template.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/shop/shop_data.js" type="text/javascript"></script>
+#parse("mob/common/foot.vm")

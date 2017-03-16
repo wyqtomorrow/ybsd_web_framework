@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>供应详情</title>
+    <link href="${link.contextPath}/mui/css/mui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${link.contextPath}/mstatic/css/lv.css" rel="stylesheet" type="text/css"/>
+    <link href="${link.contextPath}/mui/css/mui.picker.css" rel="stylesheet"/>
+    <link href="${link.contextPath}/mui/css/mui.poppicker.css" rel="stylesheet"/>
+    <link href="${link.contextPath}/mui/css/mui.picker.min.css" rel="stylesheet" type="text/css"/>
+    <script src="${link.contextPath}/common/jquery-2.2.3.min.js" type="text/javascript"></script>
+    <script src="${link.contextPath}/mui/js/mui.min.js" type="text/javascript"></script>
+    <script src="${link.contextPath}/mui/js/public.js" type="text/javascript"></script>
+    <script src="${link.contextPath}/mui/Mymui/muiglobal.js" type="text/javascript"></script>
+    <script src="${link.contextPath}/common/znt.min.js" type="text/javascript"></script>
+    <script src="${link.contextPath}/common/jquery.cookie.js" type="text/javascript"></script>
+    <script src="${link.contextPath}/mstatic/js/common/token_cookie.js" type="text/javascript"></script>
+</head>
+<body>
+#*<header class="mui-bar mui-bar-nav d_border_b">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title yahei f15">商品详情</h1>
+</header>*#
+<div class="mui-content mui-content1">
+    <input type="hidden" id="deBoId" value="$!goods.sellerBoId">
+    <input type="hidden" id="deOperatorBoId" value="$!goods.sellerOperatorBoId">
+    <input type="hidden" id="deUserType" value="$!goods.sellerUserType">
+    <input type="hidden" id="busId" value="$!goods.id">
+    <input type="hidden" id="shopId" value="$!goods.shopId">
+    <input type="hidden" id="origStock" value="$!{goods.goodsSpecResForm.origStock}">
+    <input type="hidden" id="urlPic" value="$!goods.thumbnailUrl">
+    <input type="hidden" id="description" value="$!goods.description">
+    <input type="hidden" id="llwUrl" value="$!llwUrl">
+    <input type="hidden" id="categoryName" value="$!goods.categoryName">
+    <input type="hidden" id="variety" value="$!goods.mapAttr.GAV_VARIETY">
+    <input type="hidden" id="age" value="$!goods.mapAttr.GAV_YEAR_AGE">
+    <input type="hidden" name="formToken" id="formToken" value=""/>
+    <div id="slider" class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+            #if($!{goods.picsUrl.size()} >0)
+                #set($i=$!goods.picsUrl.size())
+                #set($k=$i-1)
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="#">
+                        <img src="$!goods.picsUrl.get($k)" style="height:360px ">
+                    </a>
+                </div>
+                #foreach($pics in $goods.picsUrl)
+                    <div class="mui-slider-item">
+                        <a href="javascript:;">
+                            <img src="$pics" style="height:360px ">
+                        </a>
+                    </div>
+                #end
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="javascript:;">
+                        <img src="$!goods.picsUrl.get(0)" style="height:360px ">
+                    </a>
+                </div>
+            #else
+                <div class="mui-slider-item">
+                    <a href="javascript:;">
+                        <img src="${link.contextPath}/mstatic/img/banner.png">
+                    </a>
+                </div>
+            #end
+        </div>
+        <div class="mui-slider-indicator">
+            #if($!goods.picsUrl)
+                #foreach($pics in $goods.picsUrl)
+                    #if($!velocityCount==1)
+                        <div class="mui-indicator mui-active"></div>
+                    #else
+                        <div class="mui-indicator"></div>
+                    #end
+                #end
+            #else
+                <div class="mui-indicator mui-active"></div>
+            #end
+        </div>
+    </div>
+    <div class="padd15 b_white">
+        <p class="f15 black3">$!{goods.mapAttr.GAV_VARIETY}<em class="pad10-l">
+            #if($!goods.categoryId=="1002")
+            </em>$!{goods.mapAttr.GAV_MONTH_AGE}<em class="pad10-l"></em>
+            #else
+                </em>$!{goods.mapAttr.GAV_YEAR_AGE}<em class="pad10-l"></em>
+            #end
+            $!{goods.categoryName}</p>
+
+        <div class="box10"></div>
+        <table class="sj_data" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <p class="black3">数量</p>
+
+                    <p class="black3"><em
+                            class="fb d_blue arial f15">$number.integer($!goods.goodsSpecResForm.currStock)</em>头</p>
+                </td>
+                <td>
+                    <p class="black3">估重</p>
+
+                    <p class="black3"><em class="fb d_blue arial f15">$!{goods.mapAttr.GAV_WEIGHT_MIN}
+                        --$!{goods.mapAttr.GAV_WEIGHT_MAX}</em>公斤/头</p>
+                </td>
+                <td>
+                    <p class="black3">价格</p>
+
+                    <p class="black3"><em
+                            class="fb d_blue arial f15">$!{goods.goodsSpecResForm.price}</em>元/$!{goods.goodsSpecResForm.unitText}
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        #if("$!goods.mapAttr.GAV_GENDER" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">性别</label>
+
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_GENDER}</div>
+            </li>
+        #end
+        #if("$!goods.mapAttr.GAV_HAIR_COLOR" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">毛色</label>
+
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_HAIR_COLOR}</div>
+            </li>
+        #end
+        #if("$!goods.mapAttr.GAV_SHAPE" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">体型</label>
+
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_SHAPE}</div>
+            </li>
+        #end
+        #if("$!goods.mapAttr.GAV_HEIGHT" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">体高</label>
+
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_HEIGHT}cm</div>
+            </li>
+        #end
+        #if("$!goods.mapAttr.GAV_LENGTH" != "")
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">体长</label>
+
+                <div class="mui-col-xs-9 block">$!{goods.mapAttr.GAV_LENGTH}cm</div>
+            </li>
+        #end
+        #if($!goods.logisticsTxt)
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">配送方式</label>
+
+                <div class="mui-col-xs-9 block">$!{goods.logisticsTxt}</div>
+            </li>
+        #end
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">交货地址</label>
+
+            <div class="mui-col-xs-9 block">$!{goods.addrText}</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">发布时间</label>
+
+            <div class="mui-col-xs-9 block">$!date.format('yyyy-MM-dd HH:mm:ss',$!goods.publishTime)</div>
+        </li>
+        <li class="mui-table-view-cell mui-row">
+            <label class="gray_l mui-col-xs-3 block">有效期至</label>
+
+            <div class="mui-col-xs-9 block">$!date.format('yyyy-MM-dd HH:mm:ss',$!goods.expireTime)</div>
+        </li>
+        #if($!goods.description)
+            <li class="mui-table-view-cell mui-row">
+                <label class="gray_l mui-col-xs-3 block">说明</label>
+
+                <div class="mui-col-xs-9">$!{goods.description}
+                    <div>
+            </li>
+        #end
+    </ul>
+    <div class="box10"></div>
+</div>
+    #if($!view_type == 'my_supply')
+        #if($!goods.status != 'WSH' && $!goods.status != 'BTG' && $!goods.status != 'YS')
+        <nav class="mui-bar mui-bar-tab d_border_t d_footer">
+            #if($!goods.status == 'SJ')
+                <a class="mui-tab-item d_bl white" href="javascript:;" id="xiajia">
+                    <span class="mui-tab-label white">下架</span>
+                </a>
+            #else
+                <a class="mui-tab-item d_bl white" href="javascript:;" id="shangjia">
+                    <span class="mui-tab-label white">上架</span>
+                </a>
+            #end
+            <a class="mui-tab-item " href="javascript:;" id="delete">
+                <span class="iconfont icon-shanchu f18 "></span>
+                <span class="mui-tab-label">删除</span>
+            </a>
+        </nav>
+        #end
+    #else
+    <ul class="mui-table-view d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell mui-media">
+            <a href="javascript:;">
+                #if($goods.shopResForm.logo)
+                    <img class="mui-media-object mui-pull-left" src="$goods.shopResForm.logo">
+                #else
+                    <img class="mui-media-object mui-pull-left" src="${link.contextPath}/mstatic/img/defaulthead.png">
+                #end
+                <div class="mui-media-body ">
+                    <p class="mui-ellipsis black3"><em class="f15">$!goods.shopResForm.shopName</em></p>
+
+                    <p class="mui-ellipsis black3">
+                        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined f14 padd5_l">
+                            #if($goods.shopResForm.userType)
+                                #if($goods.shopResForm.userType=='GR')
+                                    个人
+                                #else
+                                    企业
+                                #end
+                            #else
+                                个人
+                            #end
+                        </button>
+                    </p>
+                </div>
+			  <span class="mui-pull-right  t_right pad15" id="toShop" data="$!goods.shopResForm.id">
+					进入店铺>
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box80"></div>
+    <nav class="mui-bar mui-bar-tab d_border_t d_footer">
+        <a class="mui-tab-item" id="jubao">
+            <span class="iconfont icon-jubao block f20"></span>
+            <span class="mui-tab-label">举报</span>
+        </a>
+        <a class="mui-tab-item " id="share">
+            <span class="iconfont icon-fenxiang block f20"></span>
+            <span class="mui-tab-label">分享</span>
+        </a>
+        #if($!isShowFav == 1)
+            #if("$!favResForm" != "")
+                <a class="mui_sc" id="delfav" data-id="$!favResForm.id">
+                    <span class="iconfont icon-favoriteselected block f20 d_blue"></span>
+                    <span class="mui-tab-label">已收藏</span>
+                </a>
+            #else
+                <a class="mui_sc" id="addfav" data-id="$!goods.id">
+                    <span class="iconfont icon-favorite1 block f20"></span>
+                    <span class="mui-tab-label">收藏</span>
+                </a>
+            #end
+        #end
+        <a class="mui-tab-item " id="phone" data-id="$!{goods.addrResForm.tel}">
+            <span class="iconfont icon-tel block f20"></span>
+            <span class="mui-tab-label">拨打电话</span>
+        </a>
+        <a class="mui-tab-item d_bl white" id="orderSubmit">
+            <span class="mui-tab-label white">立即下单</span>
+        </a>
+    </nav>
+    #end
+<script type="text/javascript" charset="utf-8">
+    contextPath = "${link.contextPath}";
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+    var slider = mui("#slider");
+    slider.slider({
+        interval: 5000
+    });
+</script>
+<script src="/mstatic/js/member/favorite_edit.js"></script>
+<script src="${link.contextPath}/mstatic/js/goods/goods_supply_detail.js" type="text/javascript"></script>
+</body>
+</html>
+

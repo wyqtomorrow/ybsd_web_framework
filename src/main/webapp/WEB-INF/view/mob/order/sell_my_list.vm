@@ -1,0 +1,45 @@
+#parse("mob/common/head.vm")
+<title>我卖出的</title>
+<style>
+    .mui-fullscreen.mui-slider .mui-slider-group{
+        height: 84%;
+    }
+</style>
+</head>
+<body>
+#*<header class="mui-bar mui-bar-nav mjdp d_border_b">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title yahei f15">我卖出的</h1>
+</header>*#
+<div class="mui-content mui-content1">
+    <div id="slider" class="mui-slider mui-fullscreen d_myt">
+        <div class="t_center tnt">
+            <ul class="mui-row  d_bgray d_tabb distable d_border_b">
+                #if($!sign ==1)
+                    <li class="mui-col-xs-6"><a class="mui-control-item" id="jinxing">正在进行</a></li>
+                    <li class="mui-col-xs-6"><a class="mui-control-item mui-active" id="wancheng">已完成</a>
+                    </li>
+                #else
+                    <li class="mui-col-xs-6"><a class="mui-control-item mui-active" id="jinxing">正在进行</a>
+                    </li>
+                    <li class="mui-col-xs-6"><a class="mui-control-item" id="wancheng">已完成</a></li>
+                #end
+            </ul>
+        </div>
+        <div id="refreshContainer" class="mui-scroll-wrapper mui-slider-group d_border_t ">
+            <div class="mui-scroll">
+                <ul class="mui-table-view d_mylist" id="List" current-page-no="1">
+                </ul>
+            </div>
+        </div>
+    </div>
+    #parse("mob/common/bottomTab.vm")
+</div>
+
+<script src="${link.contextPath}/mui/js/mui.pullToRefresh.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/template.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/order/sell_my_list.js" type="text/javascript"></script>
+<script>
+    contextPath = "${link.contextPath}";
+</script>
+    #parse("mob/common/foot.vm")

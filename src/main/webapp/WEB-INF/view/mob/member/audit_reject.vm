@@ -1,0 +1,56 @@
+#parse("mob/common/head.vm")
+<link href="${link.contextPath}/mui/css/mui.picker.min.css" rel="stylesheet"/>
+<title>审核驳回</title>
+    <style>
+        .mui-btn-block{padding:9px 0px;font-size:14px;}
+        .d_borbl{border-color:#5495e6;}
+    </style>
+</head>
+<body class="b_white">
+#*<header class="mui-bar mui-bar-nav d_border_b">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" ></a>
+    <h1 class="mui-title yahei f15">审核驳回</h1>
+</header>*#
+<div class="mui-content mui-content1 ">
+    <input type="hidden" id="signStr" value="$!signStr" />
+    <div class="box40"></div>
+    <div class="t_center">
+        <div class="t_center"><img src="${link.contextPath}/mstatic/img/fail.png" width="60" /></div>
+        <div class="box10"></div>
+        <div class="box10"></div>
+        <p class="black3">你提交的用户审核，已被官方工作人员驳回！</p>
+        <p class="black3">请核实申请信息，重新申请！</p>
+    </div>
+    <div class="box10"></div>
+    <div class="box10"></div>
+    <div class="mui-content-padded">
+        <button type="button" class="tjbtn mui-btn mui-btn-block d_bl white d_borbl" onclick="toAudit()">重新申请</button>
+        <div class="box5"></div>
+        <button type="button" class="mui-btn mui-btn-block mui-btn-outlined" onclick="toHome()">返回</button>
+    </div>
+</div>
+<script type="text/javascript">
+    function toHome(){
+        if($("#signStr").val() == "mes"){
+            window.location.href="/mob/message/myMessage";
+        }else{
+            self.location.href = "/mob/goods/goodsSupplyHome";
+        }
+    }
+
+    function toAudit(){
+        var param={};
+        var successCb = function (res) {
+            if(res.data.auditStatus == "DSH" && $("#signStr").val() == "mes"){
+                mui.alert("您已提交过了！我们将尽快处理", "温馨提示", function () {
+                    window.location.href = "/mob/message/myMessage";
+                });
+            }else{
+                window.location.href = "/mob/member/auditUser?signMember=1";
+            }
+        }
+        muiGet("mob/member/rejectToSubmit.do", param, successCb, null)
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/rabbit
+       http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+    <!-- rabbitmq连接配置 -->
+    <rabbit:connection-factory id="connectionFactory" host="10.209.11.200" port="5672" username="admin" password="dbn002385" publisher-confirms="true"/>
+    <rabbit:template id="amqpTemplate"  connection-factory="connectionFactory" exchange="channel.exchange.direct.mode" message-converter="jsonMessageConverter"/>
+    <!-- 消息对象json转换类 -->
+    <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter" />
+    <rabbit:admin connection-factory="connectionFactory"/>
+    <!--按项目需求配置,推荐队列的名字为nx.{project-name}.queue -->
+    <rabbit:queue name="direct.queue.mode"  durable="true" exclusive="false" auto-delete="false"/>
+    <!--按项目需求配置,推荐exchange的名字为nx.{project-name}.exchange -->
+    <rabbit:direct-exchange name="channel.exchange.direct.mode"  durable="true">
+        <rabbit:bindings>
+            <!--建立和exchange的绑定，与上面队列名相同 -->
+            <rabbit:binding key="routing.queue.mode" queue="direct.queue.mode"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto">
+        <rabbit:listener ref="simpleMqConsumerListener"  queues="direct.queue.mode"/>
+    </rabbit:listener-container>
+    <bean id="simpleMqConsumerListener" class="com.gqcp.mq.service.consumer.SimpleMqConsumerListener"/>
+</beans>

@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="refresh" content="1200">
+    <link href="${link.getContextURL()}pstatic/css/public.css" rel="stylesheet" type="text/css" />
+<title>驴联网全国实时运行平台</title>
+<style>
+.marginCtl{margin-left:-50px;margin-right:55px;}
+</style>
+</head>
+<body>
+<input type="hidden" id="toDay" value=$!toDay />
+<input type="hidden" id="beginWeek" value=$!beginWeek />
+<input type="hidden" id="beginMonth" value=$!beginMonth />
+##地区名字
+<input type="hidden" id="areaName" value='' />
+##地区ID
+<input type="hidden" id="areaID" value='' />
+##区域类型
+<input type="hidden" id="areaType" value=''/>
+##实时成交额
+<input type="hidden" id="cjzeTime" value='' />
+##累计成交额（不包括实时）
+<input type="hidden" id="ljcjjeTime" value='' />
+##累计成交额（加实时，头翻动用）
+<input type="hidden" id="realTimeSum" value='' />
+<div class="wrap w1920">
+    #set($titleName='驴联网全国实时运行平台')
+    #parse("pc/bigdata/parts/platformHead.vm")
+    <div class="w_connect">
+        <div class="container">
+            <div class="row clear">
+                <div class="wc_sider left w456">
+                    <div class="wc_tit white"><h3 class="yahei  fb f24 inline_block">毛驴流动</h3><span class="arial gray">donkey flow</span>
+                    </div>
+                    #set($class='wc_chart1')
+                    #set($functionName='createLvMoveMap')
+                    #parse("pc/bigdata/parts/lvMove4Platform.vm")
+                </div>
+                <div class="w_mid left w800 marginCtl">
+                    <div class="w_mitit wc_tit white t_center"><h3 class="yahei f30 ">累计交易金额</h3><span
+                            class="arial gray">Real time transaction volume</span></div>
+                    <div class="wc_num  arial white t_center">
+                        <em class="f26">￥</em>
+					<span class="f80 arial amount" id="amountElement" style="background:none"
+                          onmouseover="showSumCJTS()" onmouseout="hiddenSumCJTS()">
+                        <span class="yahei">加载中。。。</span>
+						<!-- <i>8</i><i>8</i><i class="i_icon">,</i><i>8</i><i>8</i><i>8</i><i class="i_icon">,</i><i>8</i><i>8</i><i>8</i><i class="i_icon">,</i><i>8</i><i>8</i> -->
+					</span>
+                        <div class="dropdown-content1" id="sumCJTS"></div>
+                    </div>
+                    <div class="box30"></div>
+                    <table class="wc_tabel t_center" width="100%">
+                        <tr class="wct_tr">
+                            <td>
+                                <div class="wct_con">
+                                    <h3 class="f48 fb arial white" id='cjl'></h3><span class="yahei gray f18">今日交易头数(头)</span>
+                                    <i style="color: #ffffff"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="wct_con">
+                                    <h3 class="f48 fb arial white" id='cjlmonth'></h3><span class="yahei gray f18">近30日交易量(头)</span>
+                                    <i style="color: #ffffff"></i>
+                                </div>
+                            </td>
+                            <td class="end">
+                                <div class="wct_con">
+                                    <h3 class="f48 fb arial white" id='zststoday'></h3><span class="yahei gray f18">在售头数(头)</span>
+                                    <i style="color: #ffffff"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="wct_con">
+                                    <h3 class="f48 fb arial white" id='cjze'></h3><span class="arial gray f18">今日交易额(万元)</span>
+                                    <i style="color: #ffffff"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="wct_con">
+                                    <h3 class="f48 fb arial white" id='cjzemonth'></h3><span class="arial gray f18">近30日交易额(万元)</span>
+                                    <i style="color: #ffffff"></i>
+                                </div>
+                            </td>
+                            <td class="end">
+                                <div class="wct_con">
+                                    <h3 class="f48 fb arial white" id='ljmjsl'></h3><span class="yahei gray f18">总用户数(人)</span>
+                                    <i style="color: #ffffff"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="wc_sider left w462">
+                    <div class="wc_tit white"><h3 class="yahei  fb f24 inline_block">交易公告板</h3><span class="arial gray">Bulletin board</span></div>
+                    <div class="box50"></div>
+                    #set($class='h_list')
+                    #parse("pc/bigdata/parts/lvBulletin4Platform.vm")
+                </div>
+            </div>
+            <div class="box60"></div>
+            <div class="w_mid row clear wm_chart1 t_center">
+                <div class="col-xs-12 left">
+                    <div class="wmc_lf">
+                        <div class="wc_tit white t_left"><h3 class="yahei fb f24 inline_block">驴驹价格</h3></div>
+                        <div class="box10"></div>
+                        #set($class='wmcl_chart2')
+                        #parse("pc/bigdata/parts/lvPricePlatform.vm")
+                        <div class="box10"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 left">
+                    <div class="wmc_lf ">
+                        <div class="wc_tit white t_left"><h3 class="yahei fb f24 inline_block">驴驹成交量</h3></div>
+                        <div class="box10"></div>
+                        #set($class='wmcl_chart2')
+                        #parse("pc/bigdata/parts/lvCJInfoPlatform.vm")
+                        <div class="box10"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 left">
+                    <div class="wmc_lf ">
+                        <div class="wc_tit white t_left"><h3 class="yahei  fb f24 inline_block">驴驹出栏均重</h3></div>
+                        <div class="box10"></div>
+                        #set($class='wmcl_chart2')
+                        #parse("pc/bigdata/parts/lvCLJZPlatform.vm")
+                        <div class="box10"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+##<script type="text/javascript" src="${link.getContextURL()}pstatic/js/jquery.js"></script>
+<script type="text/javascript" src="${link.getContextURL()}pstatic/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="${link.getContextURL()}pstatic/js/bigdata/countUp.min.js"></script>
+
+<script type="text/javascript" src="${link.getContextURL()}pstatic/js/echarts.js"></script>
+
+<script type="text/javascript">
+
+    $(function(){
+        //数字
+        var amountElement = $('#amountElement'),
+                options = {
+                    useEasing : true,
+                    useGrouping : true,
+                    separator : ',',
+                    decimal : '.',
+                    prefix : '',
+                    suffix : ''
+                },
+                autoAmount = function() {
+                    if (typeof(amountElement.attr('style')) !== 'undefined') {
+                        $('#amountElement').removeAttr('style');
+                    }
+                    var realTimeSum=$('#realTimeSum').val();
+                    var startNum =0;
+                    if(realTimeSum>999999){
+                        var startNum = realTimeSum.toString().substr(0,1)+'00000000';
+                    }
+
+                    amount = null;
+                    //console.log(startNum);
+                    amount = new CountUp('amountElement', startNum, realTimeSum, 0, 3.0, options);
+                    amount.start();
+                },amount;
+        autoAmount();
+        setInterval(function(){
+            autoAmount();
+        },10000);
+    });
+
+    //定时刷新
+    clearInterval(timeTicket);
+    var oldvalue=0;
+    var timeTicket = setInterval(function (){
+        //肉驴市场头部数据信息
+        getLvHeadTimes();
+    }, 60000);
+
+    jQuery(document).ready(function(){
+        //肉驴市场头部数据信息
+        getLvHeadTimes();
+        //出栏均重
+        getLvAvgWeightInfo();
+        //电子公告板
+        getBulletinInfo();
+        //驴流动图
+        getLvStatFlow();
+    })
+
+    require.config({
+        paths: {
+//            echarts: 'http://echarts.baidu.com/build/dist'
+            echarts: '${link.getContextURL()}/pstatic/js'
+        }
+    });
+
+    function showSumCJTS(){
+        $('#sumCJTS').show();
+    }
+    function hiddenSumCJTS(){
+        $('#sumCJTS').hide();
+    }
+
+    //--------------------表头数据-------start-----------------
+    function getLvHeadTimes(){
+        var beginMonth = $("#beginMonth").val();
+        var toDay = $("#toDay").val();
+
+        jQuery.ajax({
+            url:'/bigdata/getLvHeadTimes',
+            type:'POST',
+            async:false,
+            data:{"beginMonth":beginMonth,"toDay":toDay},
+            dataType:'JSON',
+            success:function(data){
+                var myobj=eval(data.data);
+
+                //今日
+                $('#cjl').html(formatValue(myobj.todayFinalGoodsNum,0,0));
+                $('#cjze').html(formatValue(myobj.todayPayableMoney,5,2));
+
+                //30日
+                $('#cjlmonth').html(formatValue(myobj.monthFinalGoodsNum,0,0))
+                $('#cjzemonth').html(formatValue(myobj.monthPayableMoney,5,2))
+
+                $("#ljmjsl").html(formatValue(myobj.sumUser,0,0));
+
+                $('#sumCJTS').html('总成交头数：'+formatValue(myobj.totalFinalGoodsNum,0,0)+'头</br>');
+                $('#zststoday').html(formatValue(myobj.sumCurrStock,0,0));
+                $('#realTimeSum').val(formatValue(myobj.totalPayableMoney,0,0));
+
+                //做成成交折线
+                createCJInfoLineData(myobj.rouLvDateList,myobj.rouLvPayableMoneyList,myobj.rouLvFinalGoodsNumList);
+
+                //做成价格折线
+                createPriceInfoLineData(myobj.rouLvDateList,myobj.publishPriceList,myobj.rouLvSellPriceList);
+            }
+        });
+
+    }
+    //--------------------表头数据-------end-----------------
+
+    /*
+ * formatValue(s,type,p)
+ * 功能：格式数据类型数据
+ * 参数：s，需要格式化的数值.
+ * 参数：type,判断数据类型 0:整数 5:金额为万.
+ * 参数：p,小数位数.
+ * 返回：返回格式化后的数值字符串.
+ */
+    function formatValue(s,type,p){
+        if(typeof(s)=='undefined' || isNaN(s) || s==null){
+            return '-';
+        }
+        var ret;
+        if(type==5){
+            ret=(parseFloat(s)/10000).toFixed(p);
+        } else if(type==0){
+            ret=(parseFloat(s)).toFixed(p);
+        }
+        return ret;
+    }
+
+    /***
+     * 给ECharts Y轴间隔数算出
+     * @param pNum ：AxisLabel的number号(从0开始)
+     * @param interval ：间隔数
+     * @param maxNum ：最大number
+     * @returns {*}
+     */
+    function isAxisLabelPoint(pNum, interval, maxNum) {
+        var reLastFlg=false;
+        //取倒数第二个点非完要描绘整点
+        if(((pNum+interval)>maxNum) && ((maxNum-pNum)<=interval/2)){
+            reLastFlg=true;
+        }
+        if (pNum==0 || pNum==maxNum) {
+            return true;
+        } else if(pNum%interval==0 && !reLastFlg) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<div class=$!class style="$!style" id="szld"></div>
+
+<script type="text/javascript">
+    //基础信息数据
+    var geoCoord=new Object();
+    //--------------------------驴流动图---------start------------------
+    function getLvStatFlow() {
+
+        var beginMonth = $("#beginMonth").val();
+        var toDay = $("#toDay").val();
+
+        jQuery.ajax({
+            url:'/bigdata/getLvStatFlow',
+            type:'POST',
+            data:{"beginMonth":beginMonth,"toDay":toDay},
+            dataType:'JSON',
+            success:function(data){
+                var myobj=eval(data.data);
+                createLvStatFlow(myobj);
+            }
+        });
+    }
+
+    function createLvStatFlow(obj) {
+
+        require(['echarts', 'echarts/chart/map'], function (ec) {
+            var myChartszld = ec.init(document.getElementById('szld'));
+
+
+            var effect = {
+                show: true,
+                scaleSize: require('zrender/tool/env').canvasSupported ? 1 : 2,
+                period: 30,             // 运动周期，无单位，值越大越慢
+                color: '#fff',
+                shadowColor: 'rgba(220,220,220,0.4)',
+                shadowBlur: 5
+            };
+
+            function itemStyle(idx) {
+                return {
+                    normal: {
+                        color: '#fff',
+                        borderWidth: 1,
+                        borderColor: ['rgba(30,144,255,1)', 'lime',][idx],
+                        lineStyle: {
+                            type: 'solid'
+                        }
+                    }
+                }
+            };
+            function itemRedStyle(idx) {
+                return {
+                    normal: {
+                        color: '#fff',
+                        borderWidth: 1,
+                        borderColor: ['rgba(255,0,0,1)', 'lime',][idx],
+                        lineStyle: {
+                            type: 'solid'
+                        }
+                    }
+                }
+            };
+            var optionszld = {
+                backgroundColor: 'transparent',
+                color: ['rgba(30,144,255,1)', 'lime'],
+                title: {
+                    subtext: '',
+                    x: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}'
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    show: false,
+                    selectedMode: 'single',
+                    data: ['全国', '聊城'],
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                toolbox: {
+                    show: false,
+                    orient: 'vertical',
+                    x: 'right',
+                    y: 'center',
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                series: [
+                    {
+                        name: '全国',
+                        type: 'map',
+                        roam: true,
+                        hoverable: false,
+                        mapType: 'china',
+                        itemStyle: {
+                            normal: {
+                                borderColor: 'rgba(100,149,237,1)',
+                                borderWidth: 2,
+                                areaStyle: {
+                                    color: 'transparent'
+                                }
+                            }
+                        },
+                        data: [],
+                        markLine: {
+                            symbol: ['circle', 'circle'],
+                            symbolSize: 1,
+                            effect: effect,
+                            itemStyle: itemStyle(1),
+                            smooth: true,
+                            data: obj.dataAllList
+                        },
+                        geoCoord: obj.geoCoord
+                    },
+                    {
+                        name: '聊城',
+                        type: 'map',
+                        roam: true,
+                        hoverable: false,
+                        mapType: 'china',
+                        itemStyle: {
+                            normal: {
+                                borderColor: 'rgba(100,149,237,1)',
+                                borderWidth: 2,
+                                areaStyle: {
+                                    color: 'transparent'
+                                }
+                            }
+                        },
+                        data: [],
+                        markLine: {
+                            symbol: ['circle', 'circle'],
+                            symbolSize: 1,
+                            effect: effect,
+                            itemStyle: itemRedStyle(0),
+                            smooth: true,
+                            data: obj.dataLCList
+                        },
+                        markPoint : {
+                            symbol: 'circle',
+                            symbolSize: 4,
+                            effect : {
+                                show: false,
+                                loop: false
+                            },
+                            itemStyle:{
+                                normal: {
+                                    color: '#FF0000'
+                                }
+                            },
+                            data : [
+                                {name:'东阿县',value:'',geoCoord : [
+                                    116.249,
+                                    36.336
+                                ]}
+                            ]
+                        },
+                        geoCoord: obj.geoCoordLCMap
+                    }
+                ]
+            };
+            myChartszld.setOption(optionszld, true);
+        })
+    }
+
+    //--------------------------生猪流动图---------end------------------
+
+</script>

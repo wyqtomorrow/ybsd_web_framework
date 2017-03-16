@@ -1,0 +1,128 @@
+#parse("mob/common/head.vm")
+<title>驴服务</title>
+<link href="${link.contextPath}/mui/css/mui.poppicker.css" rel="stylesheet"/>
+<link href="${link.contextPath}/mui/css/mui.picker.min.css" rel="stylesheet" type="text/css"/>
+<script src="${link.contextPath}/mstatic/js/common/public.js" type="text/javascript"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav  nopad">
+    <div class="clear d_bl height40">
+        <div class="du_search d_query  relative " style="">
+            <i class="mui-icon mui-icon-search"></i>
+            <input type="text" class="text" style="" placeholder="课程名/文章名">
+            <a href="04搜索结果.html" class="dbtn white">搜索</a>
+        </div>
+    </div>
+</header>
+<div class="d_fenlei mui-content mui-content1">
+    <nav class="mui-bar-tab b_white pad15">
+        <a class="mui-tab-item " href="02列表页.html">
+            <span class="iconfont icon-imagetext block block3 f24"></span>
+            <span class="mui-tab-label mui-tab-label1 block3">行业快讯</span>
+        </a>
+        <a class="mui-tab-item " href="02列表页.html">
+            <span class="iconfont icon-office block f24"></span>
+            <span class="mui-tab-label mui-tab-label1">养殖技术</span>
+        </a>
+        <a class="mui-tab-item" href="02列表页.html">
+            <span class="iconfont icon-raw block f24"></span>
+            <span class="mui-tab-label mui-tab-label1">疾病防治</span>
+        </a>
+        <a class="mui-tab-item" href="02列表页.html">
+            <span class="iconfont icon-category block f24"></span>
+            <span class="mui-tab-label">更多分类</span>
+        </a>
+    </nav>
+    <div id="slider" class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a href="#">
+                    <img src="${link.contextPath}/mstatic/img/d_ad.png">
+                </a>
+            </div>
+            <!-- 第一张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="${link.contextPath}/mstatic/img/d_ad.png">
+                </a>
+            </div>
+            <!-- 第二张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="${link.contextPath}/mstatic/img/d_ad.png">
+                </a>
+            </div>
+            <!-- 第三张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="${link.contextPath}/mstatic/img/d_ad.png">
+                </a>
+            </div>
+            <!-- 第四张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="${link.contextPath}/mstatic/img/d_ad.png">
+                </a>
+            </div>
+            <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a href="#">
+                    <img src="${link.contextPath}/mstatic/img/d_ad.png">
+                </a>
+            </div>
+        </div>
+        <div class="mui-slider-indicator">
+            <div class="mui-indicator mui-active"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+        </div>
+    </div>
+    <ul class="mui-table-view new_list2">
+        <li class="mui-table-view-cell mui-media">
+            <a href="03内容页.html">
+                <img class="mui-media-object mui-pull-left mui_img1" src="${link.contextPath}/mstatic/img/d_pic9.png">
+
+                <div class="mui-media-body black3">
+                    冬季驴的养殖技术
+                    <p class="mui-ellipsis d_blue">养殖技术</p>
+                </div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+            <a href="03内容页.html">
+                <img class="mui-media-object mui-pull-left mui_img1" src="${link.contextPath}/mstatic/img/d_pic9.png">
+
+                <div class="mui-media-body black3">
+                    冬季驴的养殖技术
+                    <p class="mui-ellipsis d_blue">养殖技术</p>
+                </div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+            <a href="03内容页.html">
+                <img class="mui-media-object mui-pull-left mui_img1" src="${link.contextPath}/mstatic/img/d_pic9.png">
+
+                <div class="mui-media-body black3">
+                    冬季驴的养殖技术
+                    <p class="mui-ellipsis d_blue">养殖技术</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="box80"></div>
+    #parse("mob/common/bottomTab.vm")
+<script src="${link.contextPath}/mstatic/js/server/server_index.js" type="text/javascript"/>
+<script type="text/javascript" charset="utf-8">
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+    var slider = mui("#slider");
+    slider.slider({
+        interval: 5000
+    });
+</script>
+</body>
+</html>

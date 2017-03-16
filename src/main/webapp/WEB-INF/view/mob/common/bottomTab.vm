@@ -1,0 +1,37 @@
+<nav class="mui-bar mui-bar-tab d_border_t d_footer">
+    <a class="mui-tab-item" href="javascript:;">
+        <span class="iconfont icon-mai block f20"></span>
+        <span class="mui-tab-label">卖驴</span>
+    </a>
+    <a class="mui-tab-item" href="javascript:;">
+        <span class="iconfont icon-mai1 block f20"></span>
+        <span class="mui-tab-label">买驴</span>
+    </a>
+    <a class="mui-tab-item" href="javascript:;" target="_self">
+        <span class="iconfont icon-fuwu block f20"></span>
+        <span class="mui-tab-label">驴服务</span>
+    </a>
+    <a class="mui-tab-item" href="javascript:;">
+        <span class="iconfont icon-touxiang block f20"></span>
+        <span class="mui-tab-label">我</span>
+    </a>
+</nav>
+<script type="text/javascript">
+    $(".d_footer .mui-tab-item").each(function(i){
+        $(this).on("tap",function(){
+            if(i==0){
+                window.location.href = contextPath + "/mob/goods/goodsSupplyHome";
+            }else if(i==1){
+                window.location.href = contextPath + "/mob/goods/goodsPurchaseHome";
+            }else if(i==2){
+                window.location.href = contextPath + "/mob/cms/donkeyServiceHome";
+            }else if(i==3){
+                window.location.href = contextPath + "/mob/member/myMember";
+            }
+        });
+    });
+    $(function(){
+        var tag = $("#tagFlag").val();
+        $(".d_footer .mui-tab-item").eq(tag).attr("class","mui-tab-item mui-active");
+    });
+</script>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>求购商品审核</title>
+    #parse("mob/common/contextPath.vm")
+    <script src="${link.contextPath}/mui/js/mui.pullToRefresh.js" type="text/javascript"></script>
+    <script src="${link.contextPath}/mui/js/mui.pullToRefresh.material.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="mui-content mui-content2">	
+	<div id="slider" class="mui-slider mui-fullscreen d_myt d_myt1 f_bot">	
+		<!--2017-2-13 edit begin-->
+        <div id="seachDiv" class="mui-input-row mui-search n_search">
+            <input type="text" id="keywords" class="mui-input-clear b_white f14 t_center" placeholder="请输入姓名"
+                   data-input-clear="5" style="text-align: left;">
+            <span class="mui-icon mui-icon-clear mui-hidden"></span><span class="mui-placeholder mui-pactive">
+			<span class="mui-icon mui-icon-search" id="seachGoods"></span></span>
+        </div>
+		<!--2017-2-13 edit end-->
+		<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control ">			
+			<ul class="mui-row mui-scroll d_bgray d_tabb distable">
+				<li class="mui-col-xs-6" id="new_goods">
+					<a class="mui-control-item  mui-active" href="#item1mobile">新商品申请</a>
+				</li>
+				<li class="mui-col-xs-6" id="audited_goods">
+					<a class="mui-control-item" href="#item2mobile">已审核商品</a>
+				</li>
+			</ul>			
+		</div>
+		<div class="mui-slider-group d_border_t ">			
+			<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+				<div id="refreshContainer" class="mui-scroll-wrapper">
+					<div class="mui-scroll ip_check hk_list">
+						<div class="mui-table-con d_ul">
+							<ul class="mui-table-view d_mylist" id="content">
+							</ul>
+							<div class="box10"></div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script id="goodsListTpl" type="text/html">
+    {{each items as val}}
+    <li class="mui-table-view-cell mui-media">
+        <a href="#" id="liModel" data-id="{{val.id}}">
+            <div class="padd15_l">
+                <div class="mui-media-body">
+                    <p class="black3">
+                        {{if val.categoryId!='1002'}}
+                        {{if val.mapAttr.GAV_VARIETY}}
+                        <span class="f14">{{val.mapAttr.GAV_VARIETY}}-{{val.mapAttr.GAV_YEAR_AGE}}-{{val.categoryName}}</span>
+                        {{else}}
+                        <span class="f14">{{val.mapAttr.GAV_YEAR_AGE}}-{{val.categoryName}}</span>
+                        {{/if}}
+                        {{else}}
+                        {{if val.mapAttr.GAV_VARIETY}}
+                        <span class="f14">{{val.mapAttr.GAV_VARIETY}}-{{val.mapAttr.GAV_MONTH_AGE}}-{{val.categoryName}}</span>
+                        {{else}}
+                        <span class="f14">{{val.mapAttr.GAV_MONTH_AGE}}-{{val.categoryName}}</span>
+                        {{/if}}
+                        {{/if}}
+                        <span class="pad30_l"><em class="d_blue  arial fb">{{val.price}}</em>元/{{val.unitText}}</span>
+                        <span class="mui-pull-right "><em class="d_blue fb f14 arial">{{val.currStock}}</em>{{val.stockUnitTxt}}</span>
+                    </p>
+                    <p class="gray_9 f12">
+                        <span>产地：<em class="d_blue ">{{val.mapAttr.GAV_ORIG_PLACE}}</em></span>
+                    </p>
+                    <p class="gray_9 f12">
+                        <span>发布人：<em class="d_blue">{{val.sellName}}</em></span>
+						<span class="mui-pull-right">
+							联系方式：<em class="d_blue  arial">{{val.mobilePhone}}</em>
+						</span>
+                    </p>
+                    {{if val.companyName}}
+                    <p class="gray_9 f12">
+                        <span>公司名称：<em class="d_blue">{{val.companyName}}</em></span>
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </a>
+        <div class="d_line"></div>
+        <div class="mui-media-body padd15_l">
+            <p class="black3">
+				<span class="mui-pull-right d_btn">
+					<button class="mui-btn mui-btn-danger" data-id="{{val.id}}" data-status="BTG"
+                            id="updateGoodsStatus">驳回</button>
+					<button class="mui-btn mui-btn-primary" data-id="{{val.id}}" data-status="SJ"
+                            id="updateGoodsStatus">通过</button>
+				</span>
+            </p>
+        </div>
+    </li>
+    {{/each}}
+</script>
+<script id="goodsAuditedListTpl" type="text/html">
+    {{each items as val}}
+    <li class="mui-table-view-cell mui-media">
+        <a href="#" id="liModel" data-id="{{val.id}}">
+            <div class="padd15_l">
+                <div class="mui-media-body">
+                    <p class="black3">
+                        {{if val.categoryId!='1002'}}
+                            {{if val.mapAttr.GAV_VARIETY}}
+                            <span class="f14">{{val.mapAttr.GAV_VARIETY}}-{{val.mapAttr.GAV_YEAR_AGE}}-{{val.categoryName}}</span>
+                            {{else}}
+                            <span class="f14">{{val.mapAttr.GAV_YEAR_AGE}}-{{val.categoryName}}</span>
+                            {{/if}}
+                            {{else}}
+                            {{if val.mapAttr.GAV_VARIETY}}
+                            <span class="f14">{{val.mapAttr.GAV_VARIETY}}-{{val.mapAttr.GAV_MONTH_AGE}}-{{val.categoryName}}</span>
+                            {{else}}
+                            <span class="f14">{{val.mapAttr.GAV_MONTH_AGE}}-{{val.categoryName}}</span>
+                            {{/if}}
+                        {{/if}}
+                        <span class="pad30_l"><em class="d_blue  arial fb">{{val.price}}</em>元/{{val.unitText}}</span>
+                        <span class="mui-pull-right "><em class="d_blue fb f14 arial">{{val.currStock}}</em>{{val.stockUnitTxt}}</span>
+                    </p>
+                    <p class="gray_9 f12">
+                        <span>所在地：<em class="d_blue ">{{val.addrText}}</em></span>
+                    </p>
+                    <p class="gray_9 f12">
+                        <span>发布时间：<em class="d_blue  arial">{{val.publishTimeTxt}}</em></span>
+                    </p>
+                    <p class="gray_9 f12">
+                        <span>发布人：<em class="d_blue">{{val.sellName}}</em></span>
+						<span class="mui-pull-right">
+							联系方式：<em class="d_blue  arial">{{val.mobilePhone}}</em>
+						</span>
+                    </p>
+                    {{if val.companyName}}
+                    <p class="gray_9 f12">
+                        <span>公司名称：<em class="d_blue">{{val.companyName}}</em></span>
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </a>
+        <div class="d_line"></div>
+        <div class="mui-media-body padd15_l">
+            <p class="black3">
+				<span class="mui-pull-right d_btn">
+                    {{if val.status=='TG' || val.status=='SJ' || val.status=='XJ' || val.status=='YS'}}
+						<button  class="mui-btn d_green n_btn white"><i class="tg"></i>已通过</button>
+					{{/if}}
+					{{if val.status=='BTG'}}
+						<button class="mui-btn mui-btn-danger alertBtn n_btn"><i class="bh"></i>已驳回</button>
+					{{/if}}
+				</span>
+            </p>
+        </div>
+    </li>
+    {{/each}}
+</script>
+</body>
+<script src="/mstatic/js/member/member_audit_purchase_list.js"></script>
+<script src="/mstatic/js/goods/helper_template.js"></script>
+</html>

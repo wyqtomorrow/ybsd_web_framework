@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+	    http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+
+    <!--<context:component-scan base-package="com.nxmall.nxds" />-->
+
+    <context:component-scan base-package="com.gqcp.**.*controller"/>
+    <context:component-scan base-package="com.gqcp.common.interceptor.*" />
+
+    <bean id="exceptionHandler" class="com.gqcp.common.exception.CommonExceptionHandler"></bean>
+
+    <!-- 读取配置文件-->
+    <bean id="appProperty"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+                <value>classpath:config.properties</value>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="DisableCircularReferenceDetect"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField"
+                  value="com.alibaba.fastjson.serializer.SerializerFeature.DisableCircularReferenceDetect"></property>
+    </bean>
+
+    <mvc:annotation-driven validator="validator">
+        <mvc:message-converters register-defaults="true">
+            <bean
+                    class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json</value>
+                    </list>
+                </property>
+                <property name="features">
+                    <list>
+                        <value>WriteMapNullValue</value>
+                        <value>QuoteFieldNames</value>
+                        <value>DisableCircularReferenceDetect</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/mob/memberLogin/**"/>
+            <mvc:exclude-mapping path="/appLogin/**"/>
+            <bean class="com.gqcp.common.interceptor.AccessControlInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- mvc校验器 -->
+    <bean id="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <bean id="velocityConfig"
+          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/view"/>
+        <property name="configLocation" value="/WEB-INF/velocity.properties"/>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="cache" value="true"/>
+        <property name="suffix" value=".vm"/>
+        <property name="requestContextAttribute" value="request"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="toolboxConfigLocation" value="/WEB-INF/tools.xml"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="numberToolAttribute" value="numberTool"/>
+        <property name="dateToolAttribute" value="dateTool"/>
+        <property name="viewClass"
+                  value="com.gqcp.common.template.VelocityToolbox2View"></property>
+        <property name="order" value="1"/>
+    </bean>
+
+    <!-- 文件上传相关 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--one of the properties available;the maximum upload size in bytes 100M -->
+        <property name="maxUploadSize" value="104857600"/>
+        <property name="resolveLazily" value="true"/>
+    </bean>
+
+</beans>

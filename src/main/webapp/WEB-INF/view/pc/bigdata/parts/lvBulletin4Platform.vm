@@ -1,0 +1,44 @@
+<style>
+    .tdbulletin{ overflow:hidden;whilte-space:nowrap;text-overflow:ellipsis;word-break:keep-all;white-space:nowrap; }
+</style>
+##从猪交所拿数据的时间间隔
+<input type="hidden" id="mallDataTime" value='60000' />
+##每页行数
+<input type="hidden" id="lineNo" value='8' />
+##翻页时间
+<input type="hidden" id="pagetime" value='10000'/>
+##翻页时间
+<input type="hidden" id="fromSource" value='fromPlatform'/>
+
+<div class=$!class id="zjfbt" onclick="window.location.href='/pc/dzgg/indexDzgg';return false" >
+    <table width="92%" cellpadding="0" cellspacing="0" class="t_center">
+        <thead id="head" >
+        <tr class="trinfo">
+            <td width="25%" class="tdbulletin" >品类</td>
+            <td  class="tdbulletin" >数量</td>
+            <td width="28%" class="tdbulletin">单价</td>
+            <td width="17%" class="tdbulletin">状态</td>
+        ##                <td>成交金额</td>
+        </tr>
+        </thead>
+        <tbody id="tabbody">
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" src="${link.getContextURL()}pstatic/js/bigdata/tableshow.js"></script>
+<script type="text/javascript">
+
+    function getBulletinInfo(){
+        //参数:1.多久更新一次  2.每条表格更新的频率  3.每条表格需要的替换数据的时长  4.翻页时间
+        createTableShow($('#mallDataTime').val(),500,500,$("#pagetime").val());
+    }
+    function createTableShow(totaltime,ratetime,evertdtime,pagetime){
+        tableshow = new tableShow({
+            totaltime:totaltime, //多久更新一次
+            ratetime:ratetime,   //每条表格更新的频率
+            evertdtime:evertdtime, //每条表格需要的替换数据的时长
+            pagetime:pagetime      //翻页时间
+        })
+    }
+
+</script>

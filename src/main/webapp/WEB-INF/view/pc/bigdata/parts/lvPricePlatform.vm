@@ -1,0 +1,127 @@
+<div class="$!class" id="jgline"></div>
+
+<script type="text/javascript">
+    //--------------------生猪价格趋势图-------start-----------------
+    //取得支付方式折线图
+//    function(val) {
+//        var startDate = $("#beginMonth").val();
+//        var endDate = $("#toDay").val();
+//
+//        jQuery.ajax({
+//            url: '/bigdata/getLineSZJGDataAll',
+//            type: 'POST',
+//            data: {
+//                "startDate": startDate,
+//                "endDate": endDate
+//            },
+//            dataType: 'JSON',
+//            success: function (data) {
+//                var myobj = eval(data.data);
+//                createJGData(myobj);
+//            }
+//        });
+//    }
+
+    function createPriceInfoLineData(date,fbJG,cjJG){
+
+        var optionJG = {
+            backgroundColor: 'transparent',
+                    title : {
+                text : '',
+                        subtext:'',
+                        textStyle : {
+                    color: '#fff'
+                }
+            },
+            tooltip : {
+                trigger: 'axis',
+                    formatter: function(a,b,c){
+                    if(a==null || a.length==0) return '没有数据';
+                    var res = a[0].name+'<br/>';
+                    for(var i=0;i< a.length;i++){
+                        res=res+a[i].seriesName+'：'+a[i].value+'元/公斤'+'<br/>';
+                    }
+                    return res;
+                }
+            },
+            toolbox: {
+                show : false,
+                orient : 'vertical',
+                y : 'center',
+                feature : {
+                    mark : {show: true},
+                    magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            legend : {
+                data : ['发布均价','成交均价'],
+                        show : false,
+                        textStyle : {
+                    color: '#fff'
+                }
+            },
+            grid: {
+                x: 80,
+                        y: 5,
+                        x2: 25,
+                        y2: 35
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap: true,
+                    axisLabel:{
+//                        interval:function(index,obj){
+////                            if(index==0 || (index)%6==0){
+////                                return true;
+////                            }
+//                            if(isAxisLabelPoint(index,6,date.length-1)){
+//                                return true;
+//                            }
+//                        },
+                        textStyle:{
+                            color: '#fff'
+                        }
+                    },
+                    axisTick: {onGap: false},
+                    splitLine: {show: false},
+                    data : date
+                }
+            ],
+                    yAxis : [
+                {
+                    type : 'value',
+                    scale: true,
+                    splitNumber: 4,
+                    axisLabel: {
+                        formatter: '{value} 元/公斤',
+                        textStyle:{
+                            color: '#fff'
+                        }
+                    },
+                    splitArea: {show: false}
+                }
+            ],
+                    series : [
+                {
+                    name: '发布均价',
+                    type: 'line',
+                    data: fbJG
+                },
+                {
+                    name: '成交均价',
+                    type: 'line',
+                    data: cjJG
+                }
+            ]
+        };
+
+        require(['echarts', 'echarts/chart/line','echarts/chart/bar'],function (ec) {var myChart = ec.init(document.getElementById
+        ('jgline'));myChart.setOption(optionJG);});
+
+        //createLineCLJZData(clJZ,date);
+    }
+    //--------------------生猪价格趋势图-------end-----------------
+</script>

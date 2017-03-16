@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gqcp.member.dao.mapper.MemberTagMapper" >
+  <resultMap id="BaseResultMap" type="com.gqcp.member.dao.model.MemberTag" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="bo_id" property="boId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="BIGINT" />
+    <result column="member_role" property="memberRole" jdbcType="VARCHAR" />
+    <result column="tags_code" property="tagsCode" jdbcType="VARCHAR" />
+    <result column="tags" property="tags" jdbcType="VARCHAR" />
+    <result column="system_id" property="systemId" jdbcType="TINYINT" />
+    <result column="data_remark" property="dataRemark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="version_remark" property="versionRemark" jdbcType="VARCHAR" />
+    <result column="vno" property="vno" jdbcType="TIMESTAMP" />
+    <result column="is_enabled" property="isEnabled" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, bo_id, type, shop_id, member_role, tags_code, tags, system_id, data_remark, create_time, 
+    version_remark, vno, is_enabled
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gqcp.member.dao.model.MemberTagExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nxds_member_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from nxds_member_tag
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from nxds_member_tag
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gqcp.member.dao.model.MemberTagExample" >
+    delete from nxds_member_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gqcp.member.dao.model.MemberTag" >
+    insert into nxds_member_tag (id, bo_id, type, 
+      shop_id, member_role, tags_code, 
+      tags, system_id, data_remark, 
+      create_time, version_remark, vno, 
+      is_enabled)
+    values (#{id,jdbcType=BIGINT}, #{boId,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, 
+      #{shopId,jdbcType=BIGINT}, #{memberRole,jdbcType=VARCHAR}, #{tagsCode,jdbcType=VARCHAR}, 
+      #{tags,jdbcType=VARCHAR}, #{systemId,jdbcType=TINYINT}, #{dataRemark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{versionRemark,jdbcType=VARCHAR}, #{vno,jdbcType=TIMESTAMP}, 
+      #{isEnabled,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gqcp.member.dao.model.MemberTag" >
+    insert into nxds_member_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="boId != null" >
+        bo_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="memberRole != null" >
+        member_role,
+      </if>
+      <if test="tagsCode != null" >
+        tags_code,
+      </if>
+      <if test="tags != null" >
+        tags,
+      </if>
+      <if test="systemId != null" >
+        system_id,
+      </if>
+      <if test="dataRemark != null" >
+        data_remark,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="versionRemark != null" >
+        version_remark,
+      </if>
+      <if test="vno != null" >
+        vno,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="boId != null" >
+        #{boId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="memberRole != null" >
+        #{memberRole,jdbcType=VARCHAR},
+      </if>
+      <if test="tagsCode != null" >
+        #{tagsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null" >
+        #{systemId,jdbcType=TINYINT},
+      </if>
+      <if test="dataRemark != null" >
+        #{dataRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionRemark != null" >
+        #{versionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="vno != null" >
+        #{vno,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gqcp.member.dao.model.MemberTagExample" resultType="java.lang.Integer" >
+    select count(*) from nxds_member_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update nxds_member_tag
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.boId != null" >
+        bo_id = #{record.boId,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopId != null" >
+        shop_id = #{record.shopId,jdbcType=BIGINT},
+      </if>
+      <if test="record.memberRole != null" >
+        member_role = #{record.memberRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagsCode != null" >
+        tags_code = #{record.tagsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tags != null" >
+        tags = #{record.tags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemId != null" >
+        system_id = #{record.systemId,jdbcType=TINYINT},
+      </if>
+      <if test="record.dataRemark != null" >
+        data_remark = #{record.dataRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.versionRemark != null" >
+        version_remark = #{record.versionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vno != null" >
+        vno = #{record.vno,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnabled != null" >
+        is_enabled = #{record.isEnabled,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update nxds_member_tag
+    set id = #{record.id,jdbcType=BIGINT},
+      bo_id = #{record.boId,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=VARCHAR},
+      shop_id = #{record.shopId,jdbcType=BIGINT},
+      member_role = #{record.memberRole,jdbcType=VARCHAR},
+      tags_code = #{record.tagsCode,jdbcType=VARCHAR},
+      tags = #{record.tags,jdbcType=VARCHAR},
+      system_id = #{record.systemId,jdbcType=TINYINT},
+      data_remark = #{record.dataRemark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      version_remark = #{record.versionRemark,jdbcType=VARCHAR},
+      vno = #{record.vno,jdbcType=TIMESTAMP},
+      is_enabled = #{record.isEnabled,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gqcp.member.dao.model.MemberTag" >
+    update nxds_member_tag
+    <set >
+      <if test="boId != null" >
+        bo_id = #{boId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="memberRole != null" >
+        member_role = #{memberRole,jdbcType=VARCHAR},
+      </if>
+      <if test="tagsCode != null" >
+        tags_code = #{tagsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null" >
+        system_id = #{systemId,jdbcType=TINYINT},
+      </if>
+      <if test="dataRemark != null" >
+        data_remark = #{dataRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionRemark != null" >
+        version_remark = #{versionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="vno != null" >
+        vno = #{vno,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gqcp.member.dao.model.MemberTag" >
+    update nxds_member_tag
+    set bo_id = #{boId,jdbcType=BIGINT},
+      type = #{type,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=BIGINT},
+      member_role = #{memberRole,jdbcType=VARCHAR},
+      tags_code = #{tagsCode,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      system_id = #{systemId,jdbcType=TINYINT},
+      data_remark = #{dataRemark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      version_remark = #{versionRemark,jdbcType=VARCHAR},
+      vno = #{vno,jdbcType=TIMESTAMP},
+      is_enabled = #{isEnabled,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

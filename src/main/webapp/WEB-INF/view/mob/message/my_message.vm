@@ -1,0 +1,118 @@
+#parse("mob/common/head.vm")
+<title>我的消息</title>
+</head>
+<body>
+#*<header class="mui-bar mui-bar-nav mjdp nopad">
+    <div class="clear padd10_l d_border_b">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title yahei f15">我的消息</h1>
+    </div>
+</header>*#
+<div class=" mui-content mui-content1 d_margin mui-scroll-wrapper" id="refreshContainer">
+    <div class="mui-scroll">
+        <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed mui-table-list m_message" id="list">
+            #*<li class="mui-table-view-cell">
+                <div class="mui-row clear padd15_r">
+                    <p class="black3 f15 mui-row">
+                        <span class="m_img"><img class="mui-media-object mui-pull-left" src="/mstatic/img/xx.jpg"></span>
+                        <span>【审核通知】恭喜您，您的供应商品已通过审核</span>
+                    </p>
+                    <div class="box5"></div>
+                    <p class="gray_6 mui-row m_bz">
+                        恭喜你，您于2016-10-10发布的<em class="d_blue">德州驴-2岁-肉驴100头</em>供应商品，已通过审核。
+                    </p>
+                </div>
+                <div class="d_line"></div>
+                <div class="mui-media-body">
+                    <p class="gray_l">
+                        <span class="m_time">2017-1-13</span>
+					<span class="mui-pull-right d_btn mui_btnn">
+						<button class="mui-btn mui-btn-danger alertBtn" id="alertBtn">删除</button>
+						<button class="mui-btn mui-btn-primary">查看详情</button>
+					</span>
+                    </p>
+                </div>
+            </li>
+            <li class="mui-table-view-cell">
+                <div class="mui-row clear padd15_r">
+                    <p class="black3 f15 mui-row">
+                        <span class="m_img"><img class="mui-media-object mui-pull-left" src="/mstatic/img/xx1.jpg"></span>
+                        <span>【系统通知】您关注的【XXX】发布了一条供应（求购）信息</span>
+                    </p>
+                    <div class="box5"></div>
+                    <p class="gray_6 mui-row m_bz">
+                        您关注的【XXX】发布了一条供应（求购）信息<em class="d_blue">德州驴-2岁-肉驴 100头，价格40元/公斤</em>，请及时关注。
+                    </p>
+                </div>
+                <div class="d_line"></div>
+                <div class="mui-media-body">
+                    <p class="gray_l">
+                        <span class="m_time">2017-1-13</span>
+					<span class="mui-pull-right d_btn mui_btnn">
+						<button class="mui-btn mui-btn-danger alertBtn" id="alertBtn">删除</button>
+						<button class="mui-btn mui-btn-primary">查看详情</button>
+					</span>
+                    </p>
+                </div>
+            </li>
+            <li class="mui-table-view-cell">
+                <div class="mui-row clear padd15_r">
+                    <p class="black3 f15 mui-row">
+                        <span class="m_img"><img class="mui-media-object mui-pull-left" src="/mstatic/img/xx2.jpg"></span>
+                        <span>【交易通知】您有一笔新的订单！</span>
+                    </p>
+                    <div class="box5"></div>
+                    <p class="gray_6 mui-row m_bz">
+                        您于2016-10-10发布的供应商品<em class="d_blue">德州驴-2岁-肉驴  100头</em> 已被买家【<em class="d_blue">XXX</em> 】下单，订单号：<em class="d_blue">888888888888</em> ，请及时查看。
+                    </p>
+                </div>
+                <div class="d_line"></div>
+                <div class="mui-media-body">
+                    <p class="gray_l">
+                        <span class="m_time">2017-1-13</span>
+					<span class="mui-pull-right d_btn mui_btnn">
+						<button class="mui-btn mui-btn-danger alertBtn" id="alertBtn">删除</button>
+						<button class="mui-btn mui-btn-primary">查看详情</button>
+					</span>
+                    </p>
+                </div>
+            </li>*#
+        </ul>
+    </div>
+</div>
+<script src="${link.contextPath}/mui/js/mui.pullToRefresh.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/template.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/message/my_message.js" type="text/javascript"></script>
+<script id="messageList" type="text/html">
+    {{each items as val}}
+    <li class="mui-table-view-cell" id="messageId" data-id1="{{val.id}}" data-id2="{{val.url}}">
+        <div class="mui-row clear padd15_r" id="detailMes">
+            <p class="black3 f15 mui-row">
+                {{if val.type=='SHXX'}}
+                <span class="m_img"><img class="mui-media-object mui-pull-left" src="/mstatic/img/xx.jpg"></span>
+                {{else if val.type=='XTXX'}}
+                <span class="m_img"><img class="mui-media-object mui-pull-left" src="/mstatic/img/xx1.jpg"></span>
+                {{else if val.type=='JYXX'}}
+                <span class="m_img"><img class="mui-media-object mui-pull-left" src="/mstatic/img/xx1.jpg"></span>
+                {{/if}}
+                <span>{{val.title}}</span>
+            </p>
+            <div class="box5"></div>
+            <p class="gray_6 mui-row m_bz">
+                {{val.body}}
+            </p>
+        </div>
+        <div class="d_line"></div>
+        <div class="mui-media-body">
+            <p class="gray_l">
+                <span class="m_time">{{val.timeStr}}</span>
+					<span class="mui-pull-right d_btn mui_btnn">
+						<button class="mui-btn mui-btn-danger alertBtn"  id="delMes">删除</button>
+						<button class="mui-btn mui-btn-primary" id="toDetail">查看详情</button>
+					</span>
+            </p>
+        </div>
+    </li>
+    {{/each}}
+</script>
+    #parse("mob/common/foot.vm")

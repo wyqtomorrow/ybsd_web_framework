@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gqcp.area.dao.mapper.AreaMapper" >
+  <resultMap id="BaseResultMap" type="com.gqcp.area.dao.model.Area" >
+    <id column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="area_full_code" property="areaFullCode" jdbcType="VARCHAR" />
+    <result column="area_full_name" property="areaFullName" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="order" property="order" jdbcType="INTEGER" />
+    <result column="area_name_spell" property="areaNameSpell" jdbcType="VARCHAR" />
+    <result column="area_name_acronym" property="areaNameAcronym" jdbcType="VARCHAR" />
+    <result column="tel_area_code" property="telAreaCode" jdbcType="VARCHAR" />
+    <result column="axis" property="axis" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="is_end" property="isEnd" jdbcType="TINYINT" />
+    <result column="is_enabled" property="isEnabled" jdbcType="TINYINT" />
+    <result column="effective_start_date" property="effectiveStartDate" jdbcType="TIMESTAMP" />
+    <result column="effective_end_date" property="effectiveEndDate" jdbcType="TIMESTAMP" />
+    <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseSpeResultMap" type="com.gqcp.area.mcontroller.res.AreaResponseForm" >
+    <id column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="area_full_name" property="areaFullName" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="axis" property="axis" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    area_id, area_code, area_name, area_full_code, area_full_name, rank, parent_id, `order`, 
+    area_name_spell, area_name_acronym, tel_area_code, axis, longitude, latitude, is_end, 
+    is_enabled, effective_start_date, effective_end_date, creation_date, last_update_date, 
+    remarks, description
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gqcp.area.dao.model.AreaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nxds_system_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectAreaListByExample" resultMap="BaseSpeResultMap" parameterType="com.gqcp.area.dao.model.AreaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nxds_system_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from nxds_system_area
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from nxds_system_area
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gqcp.area.dao.model.AreaExample" >
+    delete from nxds_system_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gqcp.area.dao.model.Area" >
+    insert into nxds_system_area (area_id, area_code, area_name, 
+      area_full_code, area_full_name, rank, 
+      parent_id, order, area_name_spell, 
+      area_name_acronym, tel_area_code, axis, 
+      longitude, latitude, is_end, 
+      is_enabled, effective_start_date, effective_end_date, 
+      creation_date, last_update_date, remarks, 
+      description)
+    values (#{areaId,jdbcType=INTEGER}, #{areaCode,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, 
+      #{areaFullCode,jdbcType=VARCHAR}, #{areaFullName,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, 
+      #{parentId,jdbcType=INTEGER}, #{order,jdbcType=INTEGER}, #{areaNameSpell,jdbcType=VARCHAR}, 
+      #{areaNameAcronym,jdbcType=VARCHAR}, #{telAreaCode,jdbcType=VARCHAR}, #{axis,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{isEnd,jdbcType=TINYINT}, 
+      #{isEnabled,jdbcType=TINYINT}, #{effectiveStartDate,jdbcType=TIMESTAMP}, #{effectiveEndDate,jdbcType=TIMESTAMP}, 
+      #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gqcp.area.dao.model.Area" >
+    insert into nxds_system_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="areaCode != null" >
+        area_code,
+      </if>
+      <if test="areaName != null" >
+        area_name,
+      </if>
+      <if test="areaFullCode != null" >
+        area_full_code,
+      </if>
+      <if test="areaFullName != null" >
+        area_full_name,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="order != null" >
+        order,
+      </if>
+      <if test="areaNameSpell != null" >
+        area_name_spell,
+      </if>
+      <if test="areaNameAcronym != null" >
+        area_name_acronym,
+      </if>
+      <if test="telAreaCode != null" >
+        tel_area_code,
+      </if>
+      <if test="axis != null" >
+        axis,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="isEnd != null" >
+        is_end,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="effectiveStartDate != null" >
+        effective_start_date,
+      </if>
+      <if test="effectiveEndDate != null" >
+        effective_end_date,
+      </if>
+      <if test="creationDate != null" >
+        creation_date,
+      </if>
+      <if test="lastUpdateDate != null" >
+        last_update_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="areaCode != null" >
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null" >
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaFullCode != null" >
+        #{areaFullCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaFullName != null" >
+        #{areaFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="areaNameSpell != null" >
+        #{areaNameSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="areaNameAcronym != null" >
+        #{areaNameAcronym,jdbcType=VARCHAR},
+      </if>
+      <if test="telAreaCode != null" >
+        #{telAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="axis != null" >
+        #{axis,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnd != null" >
+        #{isEnd,jdbcType=TINYINT},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="effectiveStartDate != null" >
+        #{effectiveStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndDate != null" >
+        #{effectiveEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creationDate != null" >
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gqcp.area.dao.model.AreaExample" resultType="java.lang.Integer" >
+    select count(*) from nxds_system_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update nxds_system_area
+    <set >
+      <if test="record.areaId != null" >
+        area_id = #{record.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.areaCode != null" >
+        area_code = #{record.areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaName != null" >
+        area_name = #{record.areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaFullCode != null" >
+        area_full_code = #{record.areaFullCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaFullName != null" >
+        area_full_name = #{record.areaFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.order != null" >
+        order = #{record.order,jdbcType=INTEGER},
+      </if>
+      <if test="record.areaNameSpell != null" >
+        area_name_spell = #{record.areaNameSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaNameAcronym != null" >
+        area_name_acronym = #{record.areaNameAcronym,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telAreaCode != null" >
+        tel_area_code = #{record.telAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.axis != null" >
+        axis = #{record.axis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnd != null" >
+        is_end = #{record.isEnd,jdbcType=TINYINT},
+      </if>
+      <if test="record.isEnabled != null" >
+        is_enabled = #{record.isEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="record.effectiveStartDate != null" >
+        effective_start_date = #{record.effectiveStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.effectiveEndDate != null" >
+        effective_end_date = #{record.effectiveEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creationDate != null" >
+        creation_date = #{record.creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateDate != null" >
+        last_update_date = #{record.lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update nxds_system_area
+    set area_id = #{record.areaId,jdbcType=INTEGER},
+      area_code = #{record.areaCode,jdbcType=VARCHAR},
+      area_name = #{record.areaName,jdbcType=VARCHAR},
+      area_full_code = #{record.areaFullCode,jdbcType=VARCHAR},
+      area_full_name = #{record.areaFullName,jdbcType=VARCHAR},
+      rank = #{record.rank,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      order = #{record.order,jdbcType=INTEGER},
+      area_name_spell = #{record.areaNameSpell,jdbcType=VARCHAR},
+      area_name_acronym = #{record.areaNameAcronym,jdbcType=VARCHAR},
+      tel_area_code = #{record.telAreaCode,jdbcType=VARCHAR},
+      axis = #{record.axis,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=VARCHAR},
+      is_end = #{record.isEnd,jdbcType=TINYINT},
+      is_enabled = #{record.isEnabled,jdbcType=TINYINT},
+      effective_start_date = #{record.effectiveStartDate,jdbcType=TIMESTAMP},
+      effective_end_date = #{record.effectiveEndDate,jdbcType=TIMESTAMP},
+      creation_date = #{record.creationDate,jdbcType=TIMESTAMP},
+      last_update_date = #{record.lastUpdateDate,jdbcType=TIMESTAMP},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gqcp.area.dao.model.Area" >
+    update nxds_system_area
+    <set >
+      <if test="areaCode != null" >
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null" >
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaFullCode != null" >
+        area_full_code = #{areaFullCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaFullName != null" >
+        area_full_name = #{areaFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="order != null" >
+        order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="areaNameSpell != null" >
+        area_name_spell = #{areaNameSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="areaNameAcronym != null" >
+        area_name_acronym = #{areaNameAcronym,jdbcType=VARCHAR},
+      </if>
+      <if test="telAreaCode != null" >
+        tel_area_code = #{telAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="axis != null" >
+        axis = #{axis,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnd != null" >
+        is_end = #{isEnd,jdbcType=TINYINT},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="effectiveStartDate != null" >
+        effective_start_date = #{effectiveStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndDate != null" >
+        effective_end_date = #{effectiveEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creationDate != null" >
+        creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null" >
+        last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gqcp.area.dao.model.Area" >
+    update nxds_system_area
+    set area_code = #{areaCode,jdbcType=VARCHAR},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      area_full_code = #{areaFullCode,jdbcType=VARCHAR},
+      area_full_name = #{areaFullName,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      order = #{order,jdbcType=INTEGER},
+      area_name_spell = #{areaNameSpell,jdbcType=VARCHAR},
+      area_name_acronym = #{areaNameAcronym,jdbcType=VARCHAR},
+      tel_area_code = #{telAreaCode,jdbcType=VARCHAR},
+      axis = #{axis,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      is_end = #{isEnd,jdbcType=TINYINT},
+      is_enabled = #{isEnabled,jdbcType=TINYINT},
+      effective_start_date = #{effectiveStartDate,jdbcType=TIMESTAMP},
+      effective_end_date = #{effectiveEndDate,jdbcType=TIMESTAMP},
+      creation_date = #{creationDate,jdbcType=TIMESTAMP},
+      last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </update>
+</mapper>

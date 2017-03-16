@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我发布的</title>
+    #parse("mob/common/contextPath.vm")
+    <script src="${link.contextPath}/mui/js/mui.pullToRefresh.js" type="text/javascript"></script>
+    <script src="${link.contextPath}/mui/js/mui.pullToRefresh.material.js" type="text/javascript"></script>
+</head>
+<body>
+#*<header class="mui-bar mui-bar-nav mjdp d_border_b">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title yahei f15">我发布的</h1>
+</header>*#
+<div class="mui-content mui-content1">
+    <div id="slider" class="mui-slider mui-fullscreen d_myt">
+        <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control ">
+            <ul class="mui-row mui-scroll d_bgray d_tabb distable">
+                <li class="mui-col-xs-6"><a class="mui-control-item" href="#" id="supply_id">供应</a></li>
+                <li class="mui-col-xs-6"><a class="mui-control-item mui-active" href="#">求购</a></li>
+            </ul>
+        </div>
+        <div class="mui-slider-group d_border_t ">
+            <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                <div id="scroll1" class="mui-scroll-wrapper">
+                    <div class="mui-scroll ip_check hk_list">
+                        <div class="mui-table-con">
+                            <ul class="mui-table-view d_mylist" id="content">
+                            </ul>
+                            <div class="box10"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${link.contextPath}/mstatic/js/goods/goods_my_purchase_list.js" type="text/javascript"></script>
+<script id="goodsListTpl" type="text/html">
+    {{each items as val}}
+    <li class="mui-table-view-cell mui-media">
+        <a href="/mob/goods/selectGoodsById/{{val.id}}/my_purchase">
+            <div class="padd15_l">
+                <div class="mui-media-body">
+                    <p class="black3">
+                        {{if val.mapAttr.GAV_VARIETY}}
+                        <span class="f15">{{val.mapAttr.GAV_VARIETY}}<em class="pad10-l"></em></span>
+                        {{/if}}
+
+                        {{if val.categoryId!='1002'}}
+                        <span class="f15">{{val.mapAttr.GAV_YEAR_AGE}}<em class="pad10-l"></em>{{val.categoryName}}</span>
+                        {{else}}
+                        <span class="f15">{{val.mapAttr.GAV_MONTH_AGE}}<em class="pad10-l"></em>{{val.categoryName}}</span>
+                        {{/if}}
+                        <span class="pad10-l"><em class="d_blue  arial">{{val.origStock}}</em>{{val.stockUnitTxt}}</span>
+                        <span class="mui-pull-right "><em class="d_blue fb f15 arial">{{val.price}}</em>元/{{val
+                            .unitText}}</span>
+                    </p>
+                    <p class="gray_6">估重：<em class="d_blue  arial">{{val.mapAttr.GAV_WEIGHT_MIN}}-{{val.mapAttr.GAV_WEIGHT_MAX}}</em>公斤</p>
+                    <p class="gray_6">
+                        产地：{{val.mapAttr.GAV_ORIG_PLACE}}
+                        <span class="mui-pull-right">{{val.publishTimeTxt}}</span>
+                    </p>
+                </div>
+            </div>
+        </a>
+        <div class="d_line"></div>
+        <div class="mui-media-body padd15_l">
+            <p class="black3">
+                <span class="d_sh">{{getStatus(val.status)}}</span>
+                {{if val.status!='YS'}}
+                    <span class="mui-pull-right d_btn" id="{{val.id}}">
+                        <button  class="mui-btn mui-btn-primary" id="delete">删除</button>
+                        {{if val.status=='WSH' || val.status=='CS'}}
+                        <button  class="mui-btn mui-btn-primary" id="update">修改</button>
+                        {{/if}}
+                    </span>
+                {{/if}}
+            </p>
+        </div>
+    </li>
+    {{/each}}
+</script>
+    #parse("mob/common/bottomTab.vm")
+</body>
+</html>

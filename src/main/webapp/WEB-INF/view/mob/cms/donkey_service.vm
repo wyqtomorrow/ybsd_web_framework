@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>驴服务</title>
+    #parse("mob/common/contextPath.vm")
+</head>
+<body>
+<input type="hidden" id="tagFlag" value="2">
+<header class="mui-bar mui-bar-nav  nopad">
+    <div class="clear d_bl height40">
+        <div class="du_search d_query  relative " style=";">
+            <i class="mui-icon mui-icon-search"></i>
+            <input type="text" id="articleName" class="text" style="" placeholder="文章标题">
+            <a href="#" onclick="searchArticleInfo();" class="dbtn white">搜索</a>
+        </div>
+    </div>
+</header>
+<div class="d_fenlei mui-content mui-content1 d_fenlei m_search_content">
+    <nav class="mui-bar-tab b_white pad15 d_fenlei1">
+        #foreach($column in ${columnList})
+            #if($column.colName=="行业快讯")
+                <a id="industyInfo">
+                    <span class="iconfont icon-imagetext block block3 f24"></span>
+                    <span class="mui-tab-label mui-tab-label1 block3"> $column.colName</span>
+                </a>
+            #elseif($column.colName=="养殖技术")
+                <a id="cultrueInfo">
+                    <span class="iconfont icon-office block f24"></span>
+                    <span class="mui-tab-label mui-tab-label1 block3"> $column.colName</span>
+                </a>
+            #elseif($column.colName=="疾病防治")
+                <a id="illnessInfo">
+                    <span class="iconfont icon-raw block f24"></span>
+                    <span class="mui-tab-label mui-tab-label1 block3"> $column.colName</span>
+                </a>
+            #end
+
+        #end
+        <a href="toArticleColumnList?columnName=moreClassification">
+            <span class="iconfont icon-category block f24"></span>
+            <span class="mui-tab-label mui-tab-label1 block3">更多分类</span>
+        </a>
+    </nav>
+    <div id="slider" class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a href="#">
+                    <img src="${link.contextPath}/mui/img/d_ad.png">
+                </a>
+            </div>
+            <!-- 第一张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="${link.contextPath}/mui/img/d_ad.png">
+                </a>
+            </div>
+            <!-- 第二张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="${link.contextPath}/mui/img/d_ad_first.jpg">
+                </a>
+            </div>
+            <!-- 第三张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="${link.contextPath}/mui/img/d_ad_second.jpg">
+                </a>
+            </div>
+            <!-- 第四张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="${link.contextPath}/mui/img/d_ad_third.jpg">
+                </a>
+            </div>
+            <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a href="#">
+                    <img src="${link.contextPath}/mui/img/d_ad.png">
+                </a>
+            </div>
+        </div>
+        <div class="mui-slider-indicator">
+            <div class="mui-indicator mui-active"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+        </div>
+    </div>
+    <div class="paddding10">精选推荐</div>
+    <ul class="mui-table-view new_list2">
+        #foreach($article in ${articleList})
+            <li class="mui-table-view-cell mui-media">
+                <a href="toArticleContent.do?articleId=$article.articleId&title=$article.title&colName=$article.colName&backArticle=noArticle">
+                    #if($article.picUrl!="nopic")
+                        <img class="mui-media-object mui-pull-left mui_img1" src="$article.picUrl">
+                    #end
+                    <div class="mui-media-body black3">
+                        $article.title
+                        <p class="mui-ellipsis d_blue">$article.colName</p>
+                    </div>
+                </a>
+            </li>
+        #end
+    </ul>
+</div>
+<div class="box80"></div>
+<script src="${link.contextPath}/mstatic/js/cms/donkey_common.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/cms/donkey_service.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+    var slider = mui("#slider");
+    slider.slider({
+        interval: 5000
+    });
+</script>
+    #parse("mob/common/bottomTab.vm")
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>发布求购</title>
+    #parse("mob/common/contextPath.vm")
+</head>
+<body>
+<div class="mui-content ">
+    <div class="box40"></div>
+    <div class="t_center dqg">
+        <a  href="javascript:;" onclick="sellLv('1','1001')" class="block">
+            <i class="iconfont icon-qg block f60 dred"></i>
+            求购肉驴
+        </a>
+        <a  href="javascript:;" onclick="sellLv('2','1002')" class="block">
+            <i class="iconfont icon-qg1 block f60 dye"></i>
+            求购驴驹
+        </a>
+        <a  href="javascript:;" onclick="sellLv('3','1003')" class="block">
+            <i class="iconfont icon-qg2 block f60 dbl"></i>
+            求购种驴
+        </a>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function sellLv(page,categoryId){
+        var param={};
+        function successBack(data){
+            if(data.code==0){
+                if(data.data=="TG" || data.data=="DSH"){
+                    window.location.href = contextPath + "/mob/goods/purchaseGoodsPublish/"+page+"/"+categoryId;
+                }else if(data.data=="BTG"){
+                    window.location.href = contextPath + "/mob/member/auditReject";
+                }else{
+                    window.location.href = contextPath + "/mob/member/auditUser";
+                }
+            }else if(data.code == 5){
+                znt.zntLogOut();
+            }else{
+                muiAlert("提示",data.exception);
+            }
+        }
+        function errorBack(){
+
+        }
+        muiGet("mob/goods/checkUserInfoComplete", param, successBack,errorBack);
+    }
+</script>
+</html>

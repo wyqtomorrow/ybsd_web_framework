@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=yes">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <title>用户审核</title>
+    #parse("mob/common/contextPath.vm")
+    <script src="${link.contextPath}/mui/js/mui.pullToRefresh.js" type="text/javascript"></script>
+    <script src="${link.contextPath}/mui/js/mui.pullToRefresh.material.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="mui-content mui-content2">
+    <div id="slider" class="mui-slider mui-fullscreen d_myt d_myt1 f_bot">
+        <div id="seachDiv" class="mui-input-row mui-search n_search">
+            <input type="text" id="keywords" class="mui-input-clear b_white f14 t_center" placeholder="请输入姓名或手机号"
+                   data-input-clear="5" style="text-align: left;">
+            <span class="mui-icon mui-icon-clear mui-hidden"></span><span class="mui-placeholder mui-pactive">
+			<span class="mui-icon mui-icon-search" id="seachMembers"></span></span>
+        </div>
+        <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control ">
+            <ul class="mui-row mui-scroll d_bgray d_tabb distable">
+                <li class="mui-col-xs-6" id="new_user"><a class="mui-control-item  mui-active" href="#item1mobile">新用户申请</a></li>
+                <li class="mui-col-xs-6" id="audited_user"><a class="mui-control-item" href="#item2mobile">已审核用户</a></li>
+            </ul>
+        </div>
+        <div class="mui-slider-group d_border_t ">
+            <div id="item1mobile" class="mui-slider-item mui-control-content ">
+                <div id="refreshContainer" class="mui-scroll-wrapper show-content">
+                    <div class="mui-scroll ip_check hk_list">
+                        <div class="mui-table-con d_ul">
+                            <ul class="mui-table-view d_mylist " id="content">
+                            </ul>
+                            <div class="box10"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="memberListTpl" type="text/html">
+    {{each items as val}}
+    <li class="mui-table-view-cell mui-media">
+        <div class="padd15_l mui-row">
+            <div class="mui-pull-left black3 f14 mui-col-xs-2">{{val.userName}}</div>
+            <div class="mui-media-body n_body">
+                <p class="black3 n_tel">
+                    <a class="f14 red callTel" data-id="{{val.mobilePhone}}" href="tel:{{val.mobilePhone}}"><i class="iconfont icon-lianxifangshi f20 d_red"></i>{{val.mobilePhone}}</a>
+                </p>
+                <div class="box5"></div>
+                <p class="gray_9 clear f12">
+                    <span class="mui_btnn">用户身份：<em class="d_blue">{{val.userIdentity}}</em></span>
+                    <span class="zc_time mui-pull-right">时间：<em class="d_blue">{{getCreateTime(val.createTime,'yyyy年MM月dd日')
+                        }}</em></span>
+                </p>
+                <p class="gray_9 f12 ">
+                    产地：<em class="d_blue">{{val.place}}</em>
+                </p>
+            </div>
+        </div>
+        <div class="d_line"></div>
+        <div class="mui-media-body padd15_l">
+            <p class="black3">
+				<span class="mui-pull-right d_btn">
+					<button  class="mui-btn mui-btn-danger alertBtn" data-id="{{val.boId}}" data-status="BTG" id="updateMemberStatus">驳回</button>
+					<button  class="mui-btn mui-btn-primary" data-id="{{val.boId}}" data-status="TG" id="updateMemberStatus">通过</button>
+				</span>
+            </p>
+        </div>
+    </li>
+    {{/each}}
+</script>
+<script id="memberAuditedListTpl" type="text/html">
+    {{each items as val}}
+    <li class="mui-table-view-cell mui-media">
+        <div class="padd15_l mui-row">
+            <div class="mui-media-body">
+                <p class="black3 n_tel f14 ">
+                    <span>{{val.userName}}</span>
+                    <a class="f14 red n_tit callTel" data-id="{{val.mobilePhone}}" href="tel:{{val.mobilePhone}}"><i class="iconfont icon-lianxifangshi f20 d_red"></i>{{val.mobilePhone}}</a>
+                </p>
+                <div class="box5"></div>
+                <p class="gray_9 f12">
+                    <span>用户身份：<em class="d_blue">{{val.userIdentity}}</em></span>
+                    <span class="mui-pull-right">注册时间：<em class="d_blue">{{getCreateTime(val.createTime,'yyyy年MM月dd日')
+                        }}</em></span>
+                </p>
+                <p class="gray_9 f12">
+                    产地：<em class="d_blue">{{val.place}}</em>
+                </p>
+            </div>
+        </div>
+        <div class="d_line"></div>
+        <div class="mui-media-body padd15_l">
+            <p class="black3">
+				<span class="mui-pull-right d_btn">
+					{{if val.status=='TG'}}
+						<button  class="mui-btn d_green n_btn white"><i class="tg"></i>通过</button>
+					{{/if}}
+					{{if val.status=='BTG'}}
+						<button class="mui-btn mui-btn-danger alertBtn n_btn"><i class="bh"></i>已驳回</button>
+					{{/if}}
+				</span>
+            </p>
+        </div>
+    </li>
+    {{/each}}
+</script>
+</body>
+<script type="text/javascript">
+    mui("#content").on('tap', '.callTel', function () {
+        var tel = $(this).attr("data-id");
+        console.log(tel);
+        znt.openDial({
+            phoneNo: tel // 电话号码
+        });
+    });
+</script>
+<script src="/mstatic/js/member/member_audit_user.js"></script>
+</html>

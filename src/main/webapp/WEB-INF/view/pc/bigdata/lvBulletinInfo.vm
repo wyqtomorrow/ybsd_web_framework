@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>驴生产繁殖监控图</title>
+    <link href="${link.getContextURL()}pstatic/css/public_bull.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="${link.getContextURL()}pstatic/js/jquery-1.9.1.min.js"></script>
+##    <script type="text/javascript" src="${link.getContextURL()}pstatic/js/public.js"></script>
+    <script type="text/javascript" src="${link.getContextURL()}pstatic/js/highcharts.js"></script>
+    <script type="text/javascript" src="${link.getContextURL()}pstatic/js/clist.js"></script>
+    <script>
+        $(function(){
+            //母驴受孕率情况
+            $.getJSON("${link.getContextURL()}pstatic/js/bigdata/json/char.json", function(data){
+                minChart($("#chart"),data.date,data.data);
+            });
+            //每月产驹头数
+            $.getJSON("${link.getContextURL()}pstatic/js/bigdata/json/char1.json", function(data){
+                minChart1($("#chart1"),data.date,data.data);
+            });
+            //每月情期受孕率情况
+            $.getJSON("${link.getContextURL()}pstatic/js/bigdata/json/char2.json", function(data){
+                minChart2($("#chart2"),data.date,data.data);
+            });
+            //春季驴驹每月日增重生长趋势
+            $.getJSON("${link.getContextURL()}pstatic/js/bigdata/json/char3.json", function(data){
+                minChart3($("#chart3"),data.date,data.data);
+            });
+            //预种期存栏量
+            $.getJSON("${link.getContextURL()}pstatic/js/bigdata/json/char4.json", function(data){
+                pChart("#chart4",data.pig[0].data,["#7ee617","#ffdd33","#ff9933","#00bfff",'#ff3333'],"90%");
+            });
+            //每月淘汰情况
+            $.getJSON("${link.getContextURL()}pstatic/js/bigdata/json/char5.json", function(data){
+                minChart5($("#chart5"),data.date,data.data);
+            });
+        });
+    </script>
+</head>
+<body class="bj">
+<div class="w_header f48 yahei fb t_center white">
+    <div class="f48 w_h_name" id="titleName"><a href="/bigdata/getMainPlatform" class="block">驴生产繁殖监控图</a></div>
+</div>
+<div class="d_table padd30 bj">
+    <div class="row clear w_char white">
+        <div class="col-sm-4">
+            <div class="padd20 bg margin15_r" >
+                <div class="f22">2016年产后母驴受孕率情况比较</div>
+                <div class="t_chart" id="chart"></div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="padd20 bg margin15_r" >
+                <div class="f22">2016年每月产驹头数</div>
+                <div class="t_chart" id="chart1"></div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="padd20 bg margin15_r" >
+                <div class="f22">2016年每月情期受孕率情况</div>
+                <div class="t_chart" id="chart2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="box30"></div>
+    <div class="row clear w_char white">
+        <div class="col-sm-4">
+            <div class="padd20 bg margin15_r" >
+                <div class="f22">春季驴驹每月日增重生长趋势</div>
+                <div class="t_chart" id="chart3"></div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="padd20 bg margin15_r" >
+                <div class="f22">预种期存栏量</div>
+                <div class="box10"></div>
+                <div class="t_chart t_pie" id="chart4"></div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="padd20 bg margin15_r" >
+                <div class="f22">2016年每月淘汰情况</div>
+                <div class="t_chart" id="chart5"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d_table padd30 bj1">
+    <div class="row clear w_char white">
+        <div class="col-sm-8">
+            <div class="dt_table dt_table2">
+                <table width="100%" class="t_center f16">
+                    <tr class="t_head"><td colspan="11" class="t_center f20">2016年每月产驹体重体尺数据比较</td></tr>
+                    <tr>
+                        <td>月份</td>
+                        <td>体重</td>
+                        <td>体高</td>
+                        <td>体长</td>
+                        <td>胸宽</td>
+                        <td>胸深</td>
+                        <td>胸围</td>
+                        <td>管围</td>
+                        <td>尻高</td>
+                        <td>尻长</td>
+                        <td>尻宽</td>
+                    </tr>
+                    <tr>
+                        <td>3月</td>
+                        <td>28.65</td>
+                        <td>88.58</td>
+                        <td>60.36</td>
+                        <td>15.95</td>
+                        <td>25.1</td>
+                        <td>70.97</td>
+                        <td>10.96</td>
+                        <td>90.15</td>
+                        <td>22.68</td>
+                        <td>16.65</td>
+                    </tr>
+                    <tr>
+                        <td>4月</td>
+                        <td>27.57</td>
+                        <td>87.16</td>
+                        <td>60.53</td>
+                        <td>15.78</td>
+                        <td>25.49</td>
+                        <td>70.29</td>
+                        <td>10.67</td>
+                        <td>88.95</td>
+                        <td>22.63</td>
+                        <td>16.38</td>
+                    </tr>
+                    <tr>
+                        <td>5月</td>
+                        <td>27.72</td>
+                        <td>85.7</td>
+                        <td>59.24</td>
+                        <td>18.6</td>
+                        <td>27.04</td>
+                        <td>68.87</td>
+                        <td>10.78</td>
+                        <td>87.79</td>
+                        <td>21.53</td>
+                        <td>17.04</td>
+                    </tr>
+                    <tr>
+                        <td>6月</td>
+                        <td>28.28</td>
+                        <td>87.01</td>
+                        <td>59.9</td>
+                        <td>16.51</td>
+                        <td>28.72</td>
+                        <td>68.22</td>
+                        <td>11.18</td>
+                        <td>88.87</td>
+                        <td>22.62</td>
+                        <td>16.95</td>
+                    </tr>
+                    <tr>
+                        <td>7月</td>
+                        <td>29.34</td>
+                        <td>86.47</td>
+                        <td>62.2</td>
+                        <td>16.8</td>
+                        <td>28.48</td>
+                        <td>69.92</td>
+                        <td>10.6</td>
+                        <td>88.65</td>
+                        <td>22.7</td>
+                        <td>17.88</td>
+                    </tr>
+                    <tr>
+                        <td>8月</td>
+                        <td>29.88</td>
+                        <td>86.97</td>
+                        <td>60.77</td>
+                        <td>16.7</td>
+                        <td>28.48</td>
+                        <td>69.02</td>
+                        <td>10.59</td>
+                        <td>88.61</td>
+                        <td>21.64</td>
+                        <td>16.94</td>
+                    </tr>
+                    <tr>
+                        <td>9月</td>
+                        <td>29.36</td>
+                        <td>87.29</td>
+                        <td>60.46</td>
+                        <td>16.86</td>
+                        <td>28.43</td>
+                        <td>69.68</td>
+                        <td>10.83</td>
+                        <td>89.21</td>
+                        <td>22.18</td>
+                        <td>17.32</td>
+                    </tr>
+                    <tr>
+                        <td>10月</td>
+                        <td>32.9</td>
+                        <td>88</td>
+                        <td>61.6</td>
+                        <td>18</td>
+                        <td>30.2</td>
+                        <td>72.5</td>
+                        <td>10.7</td>
+                        <td>89.4</td>
+                        <td>22.6</td>
+                        <td>17</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row clear">
+                <div class="col-sm-6">
+                    <div class="dt_table">
+                        <table width="100%" class="t_center f16">
+                            <tr class="t_head"><td colspan="11" class="t_center f20">种公驴冻精生产TOP10</td></tr>
+                            <tr>
+                                <td>种公驴号</td>
+                                <td>毛色</td>
+                                <td>冻精支数</td>
+                            </tr>
+                            <tr>
+                                <td>4588</td>
+                                <td>三粉</td>
+                                <td>7888</td>
+                            </tr>
+                            <tr>
+                                <td>586</td>
+                                <td>三粉</td>
+                                <td>7520</td>
+                            </tr>
+                            <tr>
+                                <td>4394</td>
+                                <td>三粉</td>
+                                <td>7321</td>
+                            </tr>
+                            <tr>
+                                <td>4909</td>
+                                <td>三粉</td>
+                                <td>7222</td>
+                            </tr>
+                            <tr>
+                                <td>583</td>
+                                <td>黑</td>
+                                <td>7189</td>
+                            </tr>
+                            <tr>
+                                <td>3484</td>
+                                <td>黑</td>
+                                <td>6999</td>
+                            </tr>
+                            <tr>
+                                <td>181</td>
+                                <td>黑</td>
+                                <td>6835</td>
+                            </tr>
+                            <tr>
+                                <td>576</td>
+                                <td>黑</td>
+                                <td>6733</td>
+                            </tr>
+                            <tr>
+                                <td>849</td>
+                                <td>三粉</td>
+                                <td>6637</td>
+                            </tr>
+                            <tr>
+                                <td>3635</td>
+                                <td>黑</td>
+                                <td>6522</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="dt_table dt_table1">
+                        <table width="100%" class="t_center f16">
+                            <tr class="t_head"><td colspan="2" class="t_center f20">乌头种公驴受孕率top10</td></tr>
+                            <tr>
+                                <td>种公驴号</td>
+                                <td>受怀率</td>
+                            </tr>
+                            <tr>
+                                <td>188</td>
+                                <td>57.10%</td>
+                            </tr>
+                            <tr>
+                                <td>843</td>
+                                <td>50%</td>
+                            </tr>
+                            <tr>
+                                <td>428</td>
+                                <td>48.30%</td>
+                            </tr>
+                            <tr>
+                                <td>576</td>
+                                <td>46.70%</td>
+                            </tr>
+                            <tr>
+                                <td>3920</td>
+                                <td>46.30%</td>
+                            </tr>
+                            <tr>
+                                <td>3355</td>
+                                <td>44.80%</td>
+                            </tr>
+                            <tr>
+                                <td>3635</td>
+                                <td>42.90%</td>
+                            </tr>
+                            <tr>
+                                <td>188</td>
+                                <td>39.30%</td>
+                            </tr>
+                            <tr>
+                                <td>3980</td>
+                                <td>38%</td>
+                            </tr>
+                            <tr>
+                                <td>4397</td>
+                                <td>37.50%</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box30"></div>
+    <div class="row clear w_char white">
+        <div class="dt_table dt_table1">
+            <table width="100%" class="t_center f16">
+                <tr class="t_head"><td colspan="16" class="t_center f20">2016年不同种公驴后代情况比较</td></tr>
+                <tr>
+                    <td>驴号</td>
+                    <td>公</td>
+                    <td>母</td>
+                    <td>乌</td>
+                    <td>粉</td>
+                    <td>体重</td>
+                    <td>体高</td>
+                    <td>体长</td>
+                    <td>胸宽</td>
+                    <td>胸深</td>
+                    <td>胸围</td>
+                    <td>管围</td>
+                    <td>尻高</td>
+                    <td>尻长</td>
+                    <td>尻宽</td>
+                    <td>备注</td>
+                </tr>
+                <tr>
+                    <td>181</td>
+                    <td>5</td>
+                    <td>4</td>
+                    <td>9</td>
+                    <td>0</td>
+                    <td>27.57</td>
+                    <td>86.63</td>
+                    <td>59.63</td>
+                    <td>15.38</td>
+                    <td>26.19</td>
+                    <td>69.25</td>
+                    <td>11.69</td>
+                    <td>88.88</td>
+                    <td>21.88</td>
+                    <td>17.21</td>
+                    <td>3-6月</td>
+                </tr>
+                <tr>
+                    <td>188</td>
+                    <td>12</td>
+                    <td>7</td>
+                    <td>19</td>
+                    <td>0</td>
+                    <td>26.95</td>
+                    <td>85.78</td>
+                    <td>59.28</td>
+                    <td>16.06</td>
+                    <td>26.11</td>
+                    <td>68.92</td>
+                    <td>10.71</td>
+                    <td>87.5</td>
+                    <td>21.36</td>
+                    <td>16.72</td>
+                    <td>3-6月</td>
+                </tr>
+                <tr>
+                    <td>576</td>
+                    <td>7</td>
+                    <td>6</td>
+                    <td>13</td>
+                    <td>0</td>
+                    <td>28.54</td>
+                    <td>87.62</td>
+                    <td>60.31</td>
+                    <td>16.35</td>
+                    <td>28.19</td>
+                    <td>69.5</td>
+                    <td>10.88</td>
+                    <td>88.96</td>
+                    <td>22.12</td>
+                    <td>17.17</td>
+                    <td>3-8月</td>
+                </tr>
+                <tr>
+                    <td>843</td>
+                    <td>6</td>
+                    <td>6</td>
+                    <td>9</td>
+                    <td>3</td>
+                    <td>31.54</td>
+                    <td>87</td>
+                    <td>62.77</td>
+                    <td>17.36</td>
+                    <td>28.73</td>
+                    <td>72</td>
+                    <td>10.87</td>
+                    <td>88.91</td>
+                    <td>22.41</td>
+                    <td>18.22</td>
+                    <td>7-8月</td>
+                </tr>
+                <tr>
+                    <td>847</td>
+                    <td>30</td>
+                    <td>15</td>
+                    <td>40</td>
+                    <td>5</td>
+                    <td>27.06</td>
+                    <td>86.56</td>
+                    <td>59.24</td>
+                    <td>15.76</td>
+                    <td>25.7</td>
+                    <td>68.75</td>
+                    <td>10.76</td>
+                    <td>88.24</td>
+                    <td>21.6</td>
+                    <td>16.32</td>
+                    <td>3-6月</td>
+                </tr>
+                <tr>
+                    <td>3355</td>
+                    <td>11</td>
+                    <td>14</td>
+                    <td>24</td>
+                    <td>1</td>
+                    <td>29.01</td>
+                    <td>85.17</td>
+                    <td>59.29</td>
+                    <td>16.63</td>
+                    <td>28.42</td>
+                    <td>68.9</td>
+                    <td>10.47</td>
+                    <td>86.96</td>
+                    <td>21.5</td>
+                    <td>16.92</td>
+                    <td>7-10月</td>
+                </tr>
+                <tr>
+                    <td>3920</td>
+                    <td>7</td>
+                    <td>11</td>
+                    <td>17</td>
+                    <td>1</td>
+                    <td>28.93</td>
+                    <td>87.33</td>
+                    <td>60.61</td>
+                    <td>16.29</td>
+                    <td>26.41</td>
+                    <td>70.56</td>
+                    <td>10.78</td>
+                    <td>89</td>
+                    <td>22.5</td>
+                    <td>16.44</td>
+                    <td>3-7月</td>
+                </tr>
+                <tr>
+                    <td>3980</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>23</td>
+                    <td>0</td>
+                    <td>26</td>
+                    <td>86</td>
+                    <td>60</td>
+                    <td>16.5</td>
+                    <td>22.5</td>
+                    <td>67</td>
+                    <td>11</td>
+                    <td>87</td>
+                    <td>22.5</td>
+                    <td>15</td>
+                    <td>3-8月</td>
+                </tr>
+                <tr>
+                    <td>4395</td>
+                    <td>9</td>
+                    <td>4</td>
+                    <td>12</td>
+                    <td>1</td>
+                    <td>30.25</td>
+                    <td>88.77</td>
+                    <td>62.23</td>
+                    <td>16.54</td>
+                    <td>28.27</td>
+                    <td>71.27</td>
+                    <td>10.79</td>
+                    <td>91.12</td>
+                    <td>23.12</td>
+                    <td>17.69</td>
+                    <td>3-8月</td>
+                </tr>
+                <tr>
+                    <td>4397</td>
+                    <td>33</td>
+                    <td>43</td>
+                    <td>74</td>
+                    <td>2</td>
+                    <td>27.8</td>
+                    <td>86.65</td>
+                    <td>60.24</td>
+                    <td>18.32</td>
+                    <td>27.08</td>
+                    <td>69.32</td>
+                    <td>10.65</td>
+                    <td>88.51</td>
+                    <td>22.57</td>
+                    <td>16.83</td>
+                    <td>3-9月</td>
+                </tr>
+                <tr>
+                    <td>4597</td>
+                    <td>15</td>
+                    <td>11</td>
+                    <td>24</td>
+                    <td>2</td>
+                    <td>30.22</td>
+                    <td>88.04</td>
+                    <td>61.08</td>
+                    <td>16.75</td>
+                    <td>28.3</td>
+                    <td>69.6</td>
+                    <td>11.27</td>
+                    <td>90.48</td>
+                    <td>22.54</td>
+                    <td>17.2</td>
+                    <td>3-7月</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

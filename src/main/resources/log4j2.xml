@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status=debug 可以查看log4j的装配过程 -->
+<configuration status="WARN" monitorInterval="1800">
+    <properties>
+        <property name="LOG_PATH">/gq/back/log</property>
+        <property name="LOG_NAME">gqcp_log</property>
+    </properties>
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
+        </Console>
+        <RollingRandomAccessFile name="ProductionLog"
+                                 fileName="${LOG_PATH}/${LOG_NAME}.log"
+                                 filePattern="${LOG_PATH}/${LOG_NAME}.%d{yyyy-MM-dd}.log">
+            <PatternLayout
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </appenders>
+    <loggers>
+        <root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="ProductionLog"/>
+        </root>
+        <logger name="org.springframework.core" level="error"/>
+        <logger name="org.springframework.beans" level="error"/>
+        <logger name="org.springframework.context" level="error"/>
+        <logger name="org.springframework.web" level="error"/>
+        <logger name="java.sql.Connection" level="error"/>
+        <logger name="java.sql.Statement" level="error"/>
+        <logger name="java.sql.PreparedStatement" level="error"/>
+        <logger name="java.sql.ResultSet" level="error"/>
+        <logger name="java.sql.PreparedStatement" level="error"/>
+        <logger name="com.alibaba.druid" level="error"/>
+        <logger name="org.apache.http" level="error"/>
+    </loggers>
+</configuration>

@@ -1,0 +1,93 @@
+#parse("mob/common/head.vm")
+<link href="${link.contextPath}/mui/css/mui.picker.min.css" rel="stylesheet"/>
+<title>用户审核</title>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav d_utop1 relative">
+    <div class=" t_center white padd15_l">
+        <p class="white f12">为保障用户权益,平台要求所有用户必须填写相关真实信息,</p>
+        <p class="white f12">我们将对这些信息进行审核验证,请认真填写信息。</p>
+##        <p class="f15 white shwz">如有疑问,请致电400-800-0000</p>
+    </div>
+</header>
+<input type="hidden" id="provinceId">
+<input type="hidden" id="cityId">
+<input type="hidden" id="countyId">
+<input type="hidden" id="axis">
+<input type="hidden" id="fullName">
+<input type="hidden" id="signMember" value="$!signMember">
+<div class="mui-content mui-content2">
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                我的姓名
+				<span class="mui-pull-right1 t_right">
+					<input type="text" placeholder="请填写姓名-必填" id="name" class="text t_right">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                公司名
+				<span class="mui-pull-right1 t_right">
+					<input type="text" placeholder="请填写公司名-选填" id="coName" class="text t_right">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="relative">
+                手机号码
+				<span class="mui-pull-right1 t_right">
+					<input type="number" placeholder="请填写电话号码" maxlength="11" id="tel" value="$!tel"
+                           class="text t_right">
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <ul class="mui-table-view mui-table-view-chevron d_mui_ul d_mui_form">
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right ">
+                用户类型
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="userType" class="text t_right"
+                           readonly="readonly">
+					<input type="hidden" id="tval">
+					<input type="hidden" id="tvalContent">
+				</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right " id="showCityPicker3">
+                所在地区
+				<span class="mui-pull-right  t_right">
+					<input type="text" placeholder="请选择" id="area" class="text t_right"
+                           readonly="readonly">
+					<input type="hidden" id="tval2">
+				</span>
+            </a>
+        </li>
+    </ul>
+    <div class="box10"></div>
+    <div class="d_xy t_center">
+        <i href="javascript:;" class="iconfont icon-xuanzhong1 f20 d_blue agree cur"></i>
+        <span>同意<a href="#" id="xieyi" class="d_blue d_lcross">《买卖家入驻协议》</a>	</span>
+    </div>
+    <div class="mui-content-padded">
+        <button type="button" onclick="submit()"
+                class="tjbtn mui-btn mui-btn-block  white d_nobor d_bl">提交
+        </button>
+    </div>
+</div>
+<script src="${link.contextPath}/mui/js/mui.poppicker.min.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mui/js/mui.picker.min.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mui/js/muiDialog.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mstatic/js/audit/audit_member.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/address3ji.js" type="text/javascript"></script>
+<script src="${link.contextPath}/common/dictionarygetbyparam.js" type="text/javascript"></script>
+<script src="${link.contextPath}/mui/Mymui/mcity.js" type="text/javascript"></script>
+<script>
+    contextPath = "${link.contextPath}";
+</script>
+</body>
+</html>
