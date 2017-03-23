@@ -1,13 +1,13 @@
 package com.gqcp.wechat.agent;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.riversoft.weixin.common.WxClient;
-import com.riversoft.weixin.common.util.JsonMapper;
-import com.riversoft.weixin.qy.QyWxClientFactory;
-import com.riversoft.weixin.qy.agent.bean.Agent;
-import com.riversoft.weixin.qy.agent.bean.WritableAgent;
-import com.riversoft.weixin.qy.base.CorpSetting;
-import com.riversoft.weixin.qy.base.WxEndpoint;
+import com.gqcp.common.wechat.WxClient;
+import com.gqcp.common.wechat.util.JsonMapper;
+import com.gqcp.wechat.QyWxClientFactory;
+import com.gqcp.wechat.agent.bean.Agent;
+import com.gqcp.wechat.agent.bean.WritableAgent;
+import com.gqcp.wechat.base.CorpSetting;
+import com.gqcp.wechat.base.WxEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
